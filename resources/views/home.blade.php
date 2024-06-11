@@ -5,57 +5,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Toko Durian</title>
+    <title>Payment</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #f1f5f9;
+        }
+
+        .container {
+            margin-top: 50px;
         }
 
         .card {
-            margin-top: 20px;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
         }
 
         .card img {
             height: 200px;
             object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .card-body {
+            background-color: #ffffff;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .btn-primary {
+            background-color: #ff6f61;
+            border-color: #ff6f61;
+        }
+
+        .btn-primary:hover {
+            background-color: #e65b50;
+            border-color: #e65b50;
+        }
+
+        .modal-header {
+            background-color: #ff6f61;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1 class="my-4 text-center">Agen Durian Unggul</h1>
+        <h1 class="my-4 text-center text-primary">Payment</h1>
         <div class="row justify-content-center">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card">
-                    <img src="{{asset('assets/img/durian.jpg')}}" class="card-img-top" alt="Durian">
+                    {{-- <img src="{{asset('assets/img/durian.jpg')}}" class="card-img-top" alt="Durian"> --}}
                     <div class="card-body">
-                        <h5 class="card-title">Durian Lokal</h5>
-                        <p class="card-text">Durian lokal, rasanya manis dan ada pait-paitnya, dijamin wueeeenak.</p>
+                        {{-- <h5 class="card-title">Durian Lokal</h5>
+                        <p class="card-text">Durian lokal, rasanya manis dan ada pait-paitnya, dijamin wueeeenak.</p> --}}
                         <form id="orderForm" action="/checkout" method="POST">
                             @csrf
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label for="qty" class="form-label">Mau Pesan Berapa?</label>
                                 <input type="number" name="qty" class="form-control" id="qty"
                                     placeholder="jumlah yang dipesan" required>
-                            </div>
+                            </div> --}}
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Pelanggan</label>
                                 <input type="text" name="name" class="form-control" id="name"
-                                    placeholder="masukan nama anda!" required>
+                                    placeholder="Masukkan nama anda!" required>
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">No Telp</label>
                                 <input type="text" name="phone" class="form-control" id="phone"
-                                    placeholder="masukan no hp!" required>
+                                    placeholder="Masukkan no hp!" required>
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label">Alamat</label>
                                 <textarea name="address" class="form-control" id="address" rows="3" required></textarea>
                             </div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            <div class="mb-3">
+                                <label for="total_price" class="form-label">Total Pembayaran</label>
+                                <input type="text" name="total_price" class="form-control" id="total_price"
+                                    placeholder="Masukkan Jumlah Pembayaran!" required>
+                            </div>
+                            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
                                 data-bs-target="#confirmationModal">Checkout</button>
                         </form>
                     </div>
@@ -76,10 +119,11 @@
                 <div class="modal-body">
                     <p>Apakah anda yakin dengan pesanan anda?</p>
                     <ul>
-                        <li id="confirmQty"></li>
+                        {{-- <li id="confirmQty"></li> --}}
                         <li id="confirmName"></li>
                         <li id="confirmPhone"></li>
                         <li id="confirmAddress"></li>
+                        <li id="confirmTotalPrice"></li>
                     </ul>
                 </div>
                 <div class="modal-footer">
@@ -95,10 +139,11 @@
     </script>
     <script>
         document.querySelector('[data-bs-target="#confirmationModal"]').addEventListener('click', function () {
-            document.getElementById('confirmQty').innerText = 'Jumlah: ' + document.getElementById('qty').value;
+            // document.getElementById('confirmQty').innerText = 'Jumlah: ' + document.getElementById('qty').value;
             document.getElementById('confirmName').innerText = 'Nama: ' + document.getElementById('name').value;
             document.getElementById('confirmPhone').innerText = 'No Telp: ' + document.getElementById('phone').value;
             document.getElementById('confirmAddress').innerText = 'Alamat: ' + document.getElementById('address').value;
+            document.getElementById('confirmTotalPrice').innerText = 'Jumlah Pembayaran: ' + document.getElementById('total_price').value;
         });
 
         document.getElementById('confirmButton').addEventListener('click', function () {
