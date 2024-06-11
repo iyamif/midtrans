@@ -79,18 +79,19 @@
             {{-- <img src="logo_url_here" alt="Boxcoin Logo"> --}}
         </div>
         <h2>Checkout</h2>
-        <p>Untuk Melakukan Pembayaran Harap Masukan Data Dibawah Terlebih Dahulu</p>
+        {{-- <p>Untuk Melakukan Pembayaran Harap Masukan Data Dibawah Terlebih Dahulu</p>
         <h3>IDR / Rupiah</h3>
-        <h4>Contact information</h4>
+        <h4>Contact information</h4> --}}
+        <h4>information</h4>
 
         <form onsubmit="return false">
             <div class="form-group">
                 <label for="name" class="form-label">Nama</label>
-                <input type="text" id="name" placeholder="Nama Lengkap" value="">
+                <input type="text" id="name" placeholder="Nama Lengkap" value="{{$order->name}}" readonly>
             </div>
             <div class="form-group">
                 <label for="price" class="form-label">Jumlah Nominal</label>
-                <input type="text" id="price" placeholder="Masukan Nominal" value="">
+                <input type="text" id="price" placeholder="Masukan Nominal" value="{{$order->total_price}}" readonly>
             </div>
 
             <input type="text" id="snap-token" value="{{ $snapToken }}" hidden>
