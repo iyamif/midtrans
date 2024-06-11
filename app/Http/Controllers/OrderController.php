@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
     public function index(){
         return view('home');
+    }
+
+    public function katalog(){
+        return view('katalog');
     }
     public function checkout(Request $request){
         $latestOrder = Order::orderBy('id', 'desc')->first();
@@ -19,8 +24,8 @@ class OrderController extends Controller
             'name' => $request->name,
             'address' => $request->address,
             'phone' => $request->phone,
-            'qty' => $request->qty,
-            'total_price' => $request->qty * 10000,
+            'qty' => 1,
+            'total_price' => $request->total_price,
             'status' => 'Unpaid'
         ]);
 
@@ -36,7 +41,7 @@ class OrderController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => $nextOrderId,
-                'gross_amount' =>$request->qty * 10000,
+                'gross_amount' =>$request->total_price,
             ),
             'customer_details' => array(
                 'first_name' => $request->name,
