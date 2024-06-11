@@ -11,8 +11,18 @@ class OrderController extends Controller
         return view('home');
     }
     public function checkout(Request $request){
-        $request->request->add(['total_price' => $request->qty * 10000, 'status' => 'Unpaid']);
-        $order = Order::create($request->all());
+        $latestOrder = Order::orderBy('id', 'desc')->first();
+
+        $nextOrderId = $latestOrder ? $latestOrder->id + 1 : 1;
+
+        $order = Order::create([
+            'name' => $request->name,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'qty' => $request->qty,
+            'total_price' => $request->qty * 10000,
+            'status' => 'Unpaid'
+        ]);
 
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
@@ -25,13 +35,13 @@ class OrderController extends Controller
         
         $params = array(
             'transaction_details' => array(
-                'order_id' => '1',
-                'gross_amount' =>'400000',
+                'order_id' => $nextOrderId,
+                'gross_amount' =>$request->qty * 10000,
             ),
             'customer_details' => array(
-                'first_name' => 'kjhkajhkajh',
-                'last_name' => 'jhgjahgsjhsa',
-                'phone' => '084874874'
+                'first_name' => $request->name,
+                'last_name' => null,
+                'phone' => $request->phone
             ),
         );
         
