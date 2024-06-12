@@ -11,14 +11,14 @@
         body {
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794'); /* Background tema kopi */
+            background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794');
             background-size: cover;
             background-attachment: fixed;
         }
 
         .container-fluid {
             padding: 20px;
-            background: rgba(255, 255, 255, 0.9); /* Transparansi background */
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -100,12 +100,24 @@
         .social-icons img:hover {
             transform: scale(1.2);
         }
+
+        /* Tambahan gaya untuk judul */
+        h1 {
+            font-family: 'Georgia', serif;
+            font-size: 3em;
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container-fluid">
-        <h1 class="my-4 text-center">Katalog Kopi</h1>
+        <h1 class="my-4">Katalog Kopi</h1>
         <div class="row">
             <div class="col-md-9">
                 <div class="row">
