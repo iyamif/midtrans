@@ -59,6 +59,10 @@
             background-color: #6c757d;
             border-color: #6c757d;
         }
+
+        .is-invalid {
+            border-color: #dc3545;
+        }
     </style>
 </head>
 
@@ -98,8 +102,7 @@
                                 <input type="text" name="total_price" class="form-control" id="total_price"
                                     placeholder="Masukkan Jumlah Pembayaran!" required>
                             </div>
-                            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
-                                data-bs-target="#confirmationModal">Checkout</button>
+                            <button type="button" class="btn btn-primary w-100" id="checkoutButton">Checkout</button>
                         </form>
                     </div>
                 </div>
@@ -138,12 +141,33 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <script>
-        document.querySelector('[data-bs-target="#confirmationModal"]').addEventListener('click', function () {
-            // document.getElementById('confirmQty').innerText = 'Jumlah: ' + document.getElementById('qty').value;
-            document.getElementById('confirmName').innerText = 'Nama: ' + document.getElementById('name').value;
-            document.getElementById('confirmPhone').innerText = 'No Telp: ' + document.getElementById('phone').value;
-            document.getElementById('confirmAddress').innerText = 'Alamat: ' + document.getElementById('address').value;
-            document.getElementById('confirmTotalPrice').innerText = 'Jumlah Pembayaran: ' + document.getElementById('total_price').value;
+        document.getElementById('checkoutButton').addEventListener('click', function () {
+            let isValid = true;
+
+            // Validate each input field
+            const fields = ['name', 'phone', 'address', 'total_price'];
+            fields.forEach(field => {
+                const input = document.getElementById(field);
+                if (input.value.trim() === '') {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+
+            if (isValid) {
+                document.getElementById('confirmName').innerText = 'Nama: ' + document.getElementById('name').value;
+                document.getElementById('confirmPhone').innerText = 'No Telp: ' + document.getElementById('phone').value;
+                document.getElementById('confirmAddress').innerText = 'Alamat: ' + document.getElementById('address').value;
+                document.getElementById('confirmTotalPrice').innerText = 'Jumlah Pembayaran: ' + document.getElementById('total_price').value;
+
+                // Show the modal
+                const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+                confirmationModal.show();
+            } else {
+                alert('Please fill in all fields');
+            }
         });
 
         document.getElementById('confirmButton').addEventListener('click', function () {
