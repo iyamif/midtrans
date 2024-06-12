@@ -11,10 +11,16 @@
         body {
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794'); /* Background tema kopi */
+            background-size: cover;
+            background-attachment: fixed;
         }
 
         .container-fluid {
             padding: 20px;
+            background: rgba(255, 255, 255, 0.9); /* Transparansi background */
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .card {
@@ -79,6 +85,21 @@
             font-size: 1.5em;
             font-weight: bold;
         }
+
+        .social-icons {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .social-icons img {
+            width: 40px;
+            margin: 0 10px;
+            transition: transform 0.3s;
+        }
+
+        .social-icons img:hover {
+            transform: scale(1.2);
+        }
     </style>
 </head>
 
@@ -90,7 +111,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 1">
+                            <img src="{{asset('assets/img/kopi-arabika.jpg')}}" class="card-img-top" alt="Kopi 1">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Arabika</h5>
                                 <p class="card-text">Kopi dengan aroma dan rasa yang kuat, cocok untuk pecinta kopi sejati.</p>
@@ -101,7 +122,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 2">
+                            <img src="{{asset('assets/img/kopi-robusta.jpg')}}" class="card-img-top" alt="Kopi 2">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Robusta</h5>
                                 <p class="card-text">Kopi dengan rasa pahit yang khas, cocok untuk pagi hari.</p>
@@ -112,7 +133,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 3">
+                            <img src="{{asset('assets/img/kopi-luwak.jpg')}}" class="card-img-top" alt="Kopi 3">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Luwak</h5>
                                 <p class="card-text">Kopi eksklusif dengan proses yang unik, menghasilkan rasa yang luar biasa.</p>
@@ -123,7 +144,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 4">
+                            <img src="{{asset('assets/img/kopi-toraja.jpg')}}" class="card-img-top" alt="Kopi 4">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Toraja</h5>
                                 <p class="card-text">Kopi dengan aroma dan rasa yang khas dari daerah Toraja.</p>
@@ -136,7 +157,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 5">
+                            <img src="{{asset('assets/img/kopi-gayo.jpg')}}" class="card-img-top" alt="Kopi 5">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Gayo</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma yang khas dari Aceh Gayo.</p>
@@ -147,7 +168,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 6">
+                            <img src="{{asset('assets/img/kopi-bali-kintamani.jpg')}}" class="card-img-top" alt="Kopi 6">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Bali Kintamani</h5>
                                 <p class="card-text">Kopi dengan rasa unik dari daerah Kintamani, Bali.</p>
@@ -158,7 +179,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 7">
+                            <img src="{{asset('assets/img/kopi-papua.jpg')}}" class="card-img-top" alt="Kopi 7">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Papua</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma khas dari Papua.</p>
@@ -169,7 +190,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 8">
+                            <img src="{{asset('assets/img/kopi-sumatra.jpg')}}" class="card-img-top" alt="Kopi 8">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Sumatra</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma yang kuat dari Sumatra.</p>
@@ -182,7 +203,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 9">
+                            <img src="{{asset('assets/img/kopi-flores.jpg')}}" class="card-img-top" alt="Kopi 9">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Flores</h5>
                                 <p class="card-text">Kopi dengan rasa khas dari daerah Flores.</p>
@@ -193,7 +214,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 10">
+                            <img src="{{asset('assets/img/kopi-jawa.jpg')}}" class="card-img-top" alt="Kopi 10">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Jawa</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma khas dari Jawa.</p>
@@ -204,7 +225,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 11">
+                            <img src="{{asset('assets/img/kopi-sulawesi.jpg')}}" class="card-img-top" alt="Kopi 11">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Sulawesi</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma khas dari Sulawesi.</p>
@@ -215,7 +236,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Kopi 12">
+                            <img src="{{asset('assets/img/kopi-lampung.jpg')}}" class="card-img-top" alt="Kopi 12">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Lampung</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma khas dari Lampung.</p>
@@ -224,6 +245,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook"></a>
+                    <a href="https://www.instagram.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
                 </div>
             </div>
             <div class="col-md-3">
