@@ -74,19 +74,17 @@ class OrderController extends Controller
         
     }
     public function callback(Request $request){
-        dd('test');
         $serverKey = config('midtrans.server_key');
         $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
         if($hashed == $request->signature_key){
-            if($request->transaction_status == 'capture' or $request->transaction_status == 'settlement'){
-                $order = Order::find($request->order_id);
+            if($request->transaction_status == 'capture'){
+                $order = Order::where('order_id', $request->order_id)->first();
                 $order->update(['status' => 'Paid']);
             }
-            return redirect('order');
         }
     }
     public function invoice($id){
-        $order = Order::find($id);
+        $order = Order::where('order_id', $id)->first();
         return view('invoice', compact('order'));
     }
 }
