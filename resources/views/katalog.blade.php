@@ -116,6 +116,27 @@
 </head>
 
 <body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">BrandName</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/company-profile')}}">Company Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/katalog')}}">Katalog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container-fluid">
         <h1 class="my-4">Katalog Kopi</h1>
         <div class="row">
@@ -123,7 +144,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-arabika.jpg')}}" class="card-img-top" alt="Kopi 1">
+                            <img src="assets/img/kopi-arabika.jpg" class="card-img-top" alt="Kopi 1">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Arabika</h5>
                                 <p class="card-text">Kopi dengan aroma dan rasa yang kuat, cocok untuk pecinta kopi sejati.</p>
@@ -134,7 +155,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-robusta.jpg')}}" class="card-img-top" alt="Kopi 2">
+                            <img src="assets/img/kopi-robusta.jpg" class="card-img-top" alt="Kopi 2">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Robusta</h5>
                                 <p class="card-text">Kopi dengan rasa pahit yang khas, cocok untuk pagi hari.</p>
@@ -145,7 +166,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-luwak.jpg')}}" class="card-img-top" alt="Kopi 3">
+                            <img src="assets/img/kopi-luwak.jpg" class="card-img-top" alt="Kopi 3">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Luwak</h5>
                                 <p class="card-text">Kopi eksklusif dengan proses yang unik, menghasilkan rasa yang luar biasa.</p>
@@ -156,7 +177,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-toraja.jpg')}}" class="card-img-top" alt="Kopi 4">
+                            <img src="assets/img/kopi-toraja.jpg" class="card-img-top" alt="Kopi 4">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Toraja</h5>
                                 <p class="card-text">Kopi dengan aroma dan rasa yang khas dari daerah Toraja.</p>
@@ -169,7 +190,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-gayo.jpg')}}" class="card-img-top" alt="Kopi 5">
+                            <img src="assets/img/kopi-gayo.jpg" class="card-img-top" alt="Kopi 5">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Gayo</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma yang khas dari Aceh Gayo.</p>
@@ -180,7 +201,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-bali-kintamani.jpg')}}" class="card-img-top" alt="Kopi 6">
+                            <img src="assets/img/kopi-bali-kintamani.jpg" class="card-img-top" alt="Kopi 6">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Bali Kintamani</h5>
                                 <p class="card-text">Kopi dengan rasa unik dari daerah Kintamani, Bali.</p>
@@ -191,7 +212,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-papua.jpg')}}" class="card-img-top" alt="Kopi 7">
+                            <img src="assets/img/kopi-papua.jpg" class="card-img-top" alt="Kopi 7">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Papua</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma khas dari Papua.</p>
@@ -202,7 +223,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-sumatra.jpg')}}" class="card-img-top" alt="Kopi 8">
+                            <img src="assets/img/kopi-sumatra.jpg" class="card-img-top" alt="Kopi 8">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Sumatra</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma yang kuat dari Sumatra.</p>
@@ -215,7 +236,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-flores.jpg')}}" class="card-img-top" alt="Kopi 9">
+                            <img src="assets/img/kopi-flores.jpg" class="card-img-top" alt="Kopi 9">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Flores</h5>
                                 <p class="card-text">Kopi dengan rasa khas dari daerah Flores.</p>
@@ -226,7 +247,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-jawa.jpg')}}" class="card-img-top" alt="Kopi 10">
+                            <img src="assets/img/kopi-jawa.jpg" class="card-img-top" alt="Kopi 10">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Jawa</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma khas dari Jawa.</p>
@@ -237,7 +258,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-sulawesi.jpg')}}" class="card-img-top" alt="Kopi 11">
+                            <img src="assets/img/kopi-sulawesi.jpg" class="card-img-top" alt="Kopi 11">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Sulawesi</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma khas dari Sulawesi.</p>
@@ -248,7 +269,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="{{asset('assets/img/kopi-lampung.jpg')}}" class="card-img-top" alt="Kopi 12">
+                            <img src="assets/img/kopi-lampung.jpg" class="card-img-top" alt="Kopi 12">
                             <div class="card-body">
                                 <h5 class="card-title">Kopi Lampung</h5>
                                 <p class="card-text">Kopi dengan rasa dan aroma khas dari Lampung.</p>
