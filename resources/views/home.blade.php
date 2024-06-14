@@ -97,11 +97,11 @@
                                 <input type="text" name="phone" class="form-control" id="phone"
                                     placeholder="Masukkan no hp!" required>
                             </div>
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label for="address" class="form-label">Alamat</label>
                                 <textarea name="address" class="form-control" id="address" rows="3"
                                     placeholder="Masukkan alamat anda!" required></textarea>
-                            </div>
+                            </div> --}}
                             <div class="mb-3">
                                 <label for="total_price" class="form-label">Total Pembayaran</label>
                                 <input type="text" name="total_price" class="form-control" id="total_price"
