@@ -104,7 +104,22 @@
         // For example trigger on button clicked, or any time you need
         payButton.addEventListener('click', function() {
             var snapToken = document.getElementById('snap-token').value;
-            snap.pay(snapToken);
+            window.snap.pay(snapToken,{
+                onSuccess : function (result){
+                    alert('Berhasil')
+                    window.location.href = '/invoice/{{$order->order_id}}'
+                    
+                },
+                onPending : function (result){
+
+                },
+                onError : function (result){
+
+                },
+                onClose  : function (result){
+
+                },
+            });
         })
     </script>
 </body>
