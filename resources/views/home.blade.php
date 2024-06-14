@@ -10,7 +10,8 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         body {
-            background-color: #f1f5f9;
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
         }
 
         .container {
@@ -20,29 +21,32 @@
         .card {
             border: none;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-radius: 15px; /* Menggunakan border-radius untuk membuat card tidak kotak */
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
         .card img {
             height: 200px;
             object-fit: cover;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
         }
 
         .card-body {
             background-color: #ffffff;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
         }
 
         .btn-primary {
             background-color: #ff6f61;
             border-color: #ff6f61;
+            border-radius: 20px; /* Menggunakan border-radius pada tombol */
         }
 
         .btn-primary:hover {
@@ -95,7 +99,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label">Alamat</label>
-                                <textarea name="address" class="form-control" id="address" rows="3" required></textarea>
+                                <textarea name="address" class="form-control" id="address" rows="3"
+                                    placeholder="Masukkan alamat anda!" required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="total_price" class="form-label">Total Pembayaran</label>
