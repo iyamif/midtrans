@@ -130,7 +130,7 @@
                         {{-- <li id="confirmQty"></li> --}}
                         <li id="confirmName"></li>
                         <li id="confirmPhone"></li>
-                        <li id="confirmAddress"></li>
+                        {{-- <li id="confirmAddress"></li> --}}
                         <li id="confirmTotalPrice"></li>
                     </ul>
                 </div>
@@ -150,7 +150,7 @@
             let isValid = true;
 
             // Validate each input field
-            const fields = ['name', 'phone', 'address', 'total_price'];
+            const fields = ['name', 'phone', 'total_price'];
             fields.forEach(field => {
                 const input = document.getElementById(field);
                 if (input.value.trim() === '') {
@@ -164,7 +164,7 @@
             if (isValid) {
                 document.getElementById('confirmName').innerText = 'Nama: ' + document.getElementById('name').value;
                 document.getElementById('confirmPhone').innerText = 'No Telp: ' + document.getElementById('phone').value;
-                document.getElementById('confirmAddress').innerText = 'Alamat: ' + document.getElementById('address').value;
+                // document.getElementById('confirmAddress').innerText = 'Alamat: ' + document.getElementById('address').value;
                 document.getElementById('confirmTotalPrice').innerText = 'Jumlah Pembayaran: ' + document.getElementById('total_price').value;
 
                 // Show the modal
