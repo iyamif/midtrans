@@ -70,7 +70,7 @@
                         <td>: {{ $order->status }}</td>
                     </tr>
                 </table>
-                <a href="/order" class="btn btn-primary btn-back">Kembali ke Order</a>
+                <a href="/" class="btn btn-primary btn-back">Kembali ke Katalog</a>
             </div>
         </div>
     </div>
