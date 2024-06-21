@@ -69,7 +69,7 @@ class OrderController extends Controller
             return view('checkout', compact('snapToken', 'order'));
         }catch(\Exception $e){
             DB::rollBack();
-            return redirect('order');
+            return redirect('/');
         }
         
     }
@@ -77,7 +77,7 @@ class OrderController extends Controller
         $serverKey = config('midtrans.server_key');
         $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
         if($hashed == $request->signature_key){
-            if($request->transaction_status == 'capture'){
+            if($request->transaction_status == 'capture' || $request->transaction_status == 'settlement'){
                 $order = Order::where('order_id', $request->order_id)->first();
                 $order->update(['status' => 'Paid']);
             }
