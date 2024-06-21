@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
-        data-client-key="SET_YOUR_CLIENT_KEY_HERE"></script>
+    <script type="text/javascript" src="https://app.midtrans.com/snap/snap.js" data-client-key="SET_YOUR_CLIENT_KEY_HERE">
+    </script>
+    {{-- <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="SET_YOUR_CLIENT_KEY_HERE"></script> --}}
     <title>CheckOut</title>
     <style>
         body {
@@ -87,11 +89,12 @@
         <form onsubmit="return false">
             <div class="form-group">
                 <label for="name" class="form-label">Nama</label>
-                <input type="text" id="name" placeholder="Nama Lengkap" value="{{$order->name}}" readonly>
+                <input type="text" id="name" placeholder="Nama Lengkap" value="{{ $order->name }}" readonly>
             </div>
             <div class="form-group">
-                <label for="price" class="form-label">Jumlah Nominal</label>
-                <input type="text" id="price" placeholder="Masukan Nominal" value="{{$order->total_price}}" readonly>
+                <label for="price" class="form-label">Total Pembayaran</label>
+                <input type="text" id="price" placeholder="Masukan Nominal" value="{{ $order->total_price }}"
+                    readonly>
             </div>
 
             <input type="text" id="snap-token" value="{{ $snapToken }}" hidden>
@@ -104,19 +107,19 @@
         // For example trigger on button clicked, or any time you need
         payButton.addEventListener('click', function() {
             var snapToken = document.getElementById('snap-token').value;
-            window.snap.pay(snapToken,{
-                onSuccess : function (result){
+            window.snap.pay(snapToken, {
+                onSuccess: function(result) {
                     alert('Berhasil')
-                    window.location.href = '/invoice/{{$order->order_id}}'
-                    
-                },
-                onPending : function (result){
+                    window.location.href = '/invoice/{{ $order->order_id }}'
 
                 },
-                onError : function (result){
+                onPending: function(result) {
 
                 },
-                onClose  : function (result){
+                onError: function(result) {
+
+                },
+                onClose: function(result) {
 
                 },
             });
