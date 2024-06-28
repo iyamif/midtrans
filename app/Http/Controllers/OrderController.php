@@ -87,4 +87,12 @@ class OrderController extends Controller
         $order = Order::where('order_id', $id)->first();
         return view('invoice', compact('order'));
     }
+
+    public function getTransaksi()
+    {
+        $get_data = Order::all();
+        // dd($get_data);
+        $json = json_decode(json_encode($get_data));
+        return response()->json(['status' => 'success', 'result' => $json]);
+    }
 }

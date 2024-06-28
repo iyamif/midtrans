@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/midtrans-callback', [OrderController::class, 'callback']);
+Route::get('/get_transaksi', [OrderController::class, 'getTransaksi']);
