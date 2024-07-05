@@ -14,14 +14,26 @@ return new class extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
+            // $table->id();
+            // $table->uuid('order_id');
+            // $table->string('name');
+            // $table->text('address');
+            // $table->string('phone');
+            // $table->integer('qty');
+            // $table->bigInteger('total_price');
+            // $table->enum('status', ['Unpaid', 'Paid']);
+            // $table->timestamps();
+            
             $table->id();
-            $table->uuid('order_id');
+            $table->unsignedBigInteger('shop_id');
+            $table->string('order_code');
             $table->string('name');
-            $table->text('address');
-            $table->string('phone');
-            $table->integer('qty');
-            $table->bigInteger('total_price');
-            $table->enum('status', ['Unpaid', 'Paid']);
+            $table->bigInteger('phone');
+            $table->string('address');
+            $table->text('note')->nullable();
+            $table->bigInteger('total');
+            $table->integer('status');
+            $table->text('status_payment');
             $table->timestamps();
         });
     }
