@@ -19,3 +19,4 @@ Route::get('/katalog', [OrderController::class, 'katalog']);
 Route::get('/order', [OrderController::class, 'index']);
 Route::post('/checkout', [OrderController::class, 'checkout']);
 Route::get('/invoice/{id}', [OrderController::class, 'invoice']);
+Route::post('/order/save', [OrderController::class, 'saveOrder'])->name('saveOrder');
