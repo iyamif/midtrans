@@ -634,7 +634,26 @@
             </div>
             <div id="cardbank" class="payment-container2" style="display: none;">
                 <div class="payment-method2">
-                    <img src="" id="qr-code-img" class="qr-code-img" alt="QR Code">
+                    <div id="virtual-account-container" class="container">
+                        <div class="account-info">
+                            <p><span class="label">Virtual Account</span> </p>
+                            <img src="images/mandiri.png" alt="BNI Logo">
+                        </div>
+
+                        <div class="account-details">
+                            <p><span class="label">Bank code :</span> </p>
+                            <p> <span class="value">0301</span> <a href="#" class="payment-link"
+                                    onclick="copyText('virtual-account')">Copy</a></p>
+
+                        </div>
+                        <div class="account-details">
+                            <p><span class="label">Nomor Virtual Account :</span> </p>
+                            <p> <span class="value" id="va-number"></span> <a href="#" class="payment-link"
+                                    onclick="copyText('virtual-account')">Copy</a></p>
+
+                        </div>
+                        <a href="#" class="payment-link">Lihat Cara Pembayaran</a>
+                    </div>
                 </div>
             </div>
             <div id="card2" class="payment-container2" style="display: none;">
@@ -676,36 +695,53 @@
                         </div>
                     </div>
                 </div>
-                <div id="virtual-account" class="payment-container2" style="display: none;">
+                <div id="card5" class="payment-container2" style="display: none;">
                     <div class="payment-method2">
-                        <div class="container">
-                            <div class="account-info">
-                                <p><span class="label">Virtual Account</span> </p>
-                                <img src="images/mandiri.png" alt="BNI Logo">
+                        {{-- <form>
+                        <div class="form-group">
+                            <label for="card-number" onclick="toggleToCard1()">Card Number</label>
+                            <input type="text" id="card-number" name="card-number" required>
+                        </div>
+                        <div class="form-group flex-container">
+                            <div class="form-group">
+                                <label for="exp-date">Exp Date</label>
+                                <input type="text" id="exp-date" name="exp-date" placeholder="MM/YY"
+                                    maxlength="5" required>
                             </div>
-
-                            <div class="account-details">
-                                <p><span class="label">Bank code :</span> </p>
-                                <p> <span class="value">0301</span> <a href="#" class="payment-link"
-                                        onclick="copyText('virtual-account')">Copy</a></p>
-
+                            <div class="form-group">
+                                <label for="cvv">cvv</label>
+                                <input type="text" id="cvv" name="cvv" maxlength="2" required>
                             </div>
-                            <div class="account-details">
-                                <p><span class="label">Nomor Virtual Account :</span> </p>
-                                <p> <span class="value" id="va-number"></span> <a href="#"
-                                        class="payment-link" onclick="copyText('virtual-account')">Copy</a></p>
-
+                        </div>
+                          <button class="cvc-button" id="qr" onclick="paymentCredit()">Pilih</button>
+                    </form> --}}
+                        <div class="form-group">
+                            <input type="text" id="card_number" placeholder="Card Number"
+                                value="4811111111111114">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="card_exp_month" placeholder="Expiry Month (MM)"
+                                value="12">
+                            <div class="form-group">
+                                <input type="text" id="card_exp_year" placeholder="Expiry Year (YYYY)"
+                                    value="2029">
                             </div>
-                            <a href="#" class="payment-link">Lihat Cara Pembayaran</a>
+                            <div class="form-group">
+                                <input type="text" id="card_cvv" placeholder="CVV" value="123">
+                            </div>
+                            <div class="form-group">
+
+                                <button class="payment-button" onclick="getCreditCardToken()"
+                                    style="display: block">Get
+                                    Token</button>
+                            </div>
                         </div>
                     </div>
+                    <a href="#" class="add-method"></a>
+                    {{-- <input type="email" placeholder="Email address"> --}}
+                    <button class="payment-button" id="button" style="display: none;">CHECK STATUS </button>
                 </div>
             </div>
-            <a href="#" class="add-method"></a>
-            {{-- <input type="email" placeholder="Email address"> --}}
-            <button class="payment-button" id="button" style="display: none;">CHECK STATUS </button>
-        </div>
-    </div>
 </body>
 
 <script>
@@ -780,49 +816,8 @@
 
                     if (responseData.success) {
                         const redirect_url = responseData.data.redirect_url;
-                        // var options = {
-                        //     performAuthentication: function(redirect_url) {
-                        //         // Implement how you will open iframe to display 3ds authentication redirect_url to customer
-                        //         popupModal.openPopup(redirect_url);
-                        //     },
-                        //     onSuccess: function(response) {
-                        //         // 3ds authentication success, implement payment success scenario
-                        //         console.log('response:', response);
-                        //         popupModal.closePopup();
-                        //     },
-                        //     onFailure: function(response) {
-                        //         // 3ds authentication failure, implement payment failure scenario
-                        //         console.log('response:', response);
-                        //         popupModal.closePopup();
-                        //     },
-                        //     onPending: function(response) {
-                        //         // transaction is pending, transaction result will be notified later via 
-                        //         // HTTP POST notification, implement as you wish here
-                        //         console.log('response:', response);
-                        //         popupModal.closePopup();
-                        //     }
-                        // };
-                        // MidtransNew3ds.authenticate(redirect_url, options);
-                        // var popupModal = (function() {
-                        //     var modal = null;
-                        //     return {
-                        //         openPopup(url) {
-                        //             modal = picoModal({
-                        //                 content: '<iframe frameborder="0" style="height:90vh; width:100%;" src="' +
-                        //                     url + '"></iframe>',
-                        //                 width: "75%",
-                        //                 closeButton: false,
-                        //                 overlayClose: false,
-                        //                 escCloses: false
-                        //             }).show();
-                        //         },
-                        //         closePopup() {
-                        //             try {
-                        //                 modal.close();
-                        //             } catch (e) {}
-                        //         }
-                        //     }
-                        // }());
+
+
 
 
                     } else {
@@ -969,7 +964,7 @@
 
     async function selectBank() {
         const card1 = document.getElementById('card1');
-        const card2 = document.getElementById('card5');
+        const card5 = document.getElementById('cardbank');
         // const button = document.getElementById('button');
         // const metod = document.getElementById('metod');
 
@@ -983,7 +978,7 @@
         const bank = event.currentTarget.id;
 
         card1.style.display = 'none';
-        card2.style.display = 'block';
+        card5.style.display = 'block';
 
         const response = await fetch('/va', {
             method: 'POST',
@@ -1004,18 +999,18 @@
             if (responseData.data.status_message != 'Success, PERMATA VA transaction is successful') {
                 const vaNumber = responseData.data.va_numbers[0].va_number;
                 const vaNumberContainer = document.getElementById('virtual-account-container');
-                const vaNumberElement = document.getElementById('cardbank');
+                const vaNumberElement = document.getElementById('va-number');
                 vaNumberElement.textContent = vaNumber;
                 vaNumberContainer.style.display = 'block';
             } else {
 
                 const vaNumber = responseData.permata_va_number;
                 const vaNumberContainer = document.getElementById('virtual-account-container');
-                const vaNumberElement = document.getElementById('virtual-account');
+                const vaNumberElement = document.getElementById('va-number');
                 vaNumberElement.textContent = vaNumber; // Mengisi elemen dengan va_number
 
                 vaNumberContainer.style.display = 'block';
-              }
+            }
         } else {
             console.error('Error:', responseData.error);
         }
