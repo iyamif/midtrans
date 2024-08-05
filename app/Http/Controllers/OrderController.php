@@ -113,6 +113,7 @@ class OrderController extends Controller
 
             // Generate random items
             $total_price = $request->total_price;
+            
             $items = [];
             $current_total = 0;
 

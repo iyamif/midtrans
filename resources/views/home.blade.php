@@ -154,6 +154,19 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+          document.getElementById('total_price').addEventListener('input', function() {
+            const totalPrice = parseInt(this.value.replace(/,/g, '')) || 0;
+            const checkoutButton = document.getElementById('checkoutButton');
+            const notification = document.getElementById('notification');
+
+            if (totalPrice > 3000000) {
+                checkoutButton.disabled = true;
+                notification.style.display = 'block';
+            } else {
+                checkoutButton.disabled = false;
+                notification.style.display = 'none';
+            }
+        });
         var button = document.getElementById('checkoutButton');
 
         document.getElementById('checkoutButton').addEventListener('click', function() {
