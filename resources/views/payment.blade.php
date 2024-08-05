@@ -11,7 +11,34 @@
     data-client-key="SB-Mid-client-zBGmz6N1Pw3HTXwf"></script> --}}
     <script id="midtrans-script" type="text/javascript"
         src="https://api.sandbox.midtrans.com/v2/assets/js/midtrans-new-3ds.min.js" data-environment="sandbox"
-        data-client-key="SB-Mid-client-zBGmz6N1Pw3HTXwf"></script>
+        data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/picomodal/3.0.0/picoModal.min.js"></script>
+    <script>
+        /**
+         * Example helper functions to open Iframe popup, you may replace this with your own 
+         * method of open iframe. In this example, PicoModal library is used (first include/import this: https://cdnjs.cloudflare.com/ajax/libs/picomodal/3.0.0/picoModal.min.js)
+         */
+        var popupModal = (function() {
+            var modal = null;
+            return {
+                openPopup(url) {
+                    modal = picoModal({
+                        content: '<iframe frameborder="0" style="height:90vh; width:100%;" src="' + url +
+                            '"></iframe>',
+                        width: "75%",
+                        closeButton: false,
+                        overlayClose: false,
+                        escCloses: false
+                    }).show();
+                },
+                closePopup() {
+                    try {
+                        modal.close();
+                    } catch (e) {}
+                }
+            }
+        }());
+    </script>
     <style>
         body {
             display: flex;
@@ -520,10 +547,11 @@
             <h2>CHECKOUT</h2>
             <p>Please make the payment to start enjoying all the features of our premium plan as soon as possible</p>
             <div class="plan-box">
+                <span id="order_code" style="color: #ccc">{{ $orderCode }}</span>
                 <div class="plan-info">
                     <img src="images/ck.png" alt="Small Business">
                     <div>
-                        <p class="plan-title" id="name"> {{ $name }}</p>
+                        <p class="plan-title" id="customerName"> {{ $name }}</p>
                         <a href="#" class="change-plan">TOTAL PAYMENT</a>
                     </div>
                 </div>
@@ -791,7 +819,8 @@
 
                 const token_id = response.token_id;
                 // console.log('This is the card token_id:', token_id);
-                const orderID = 'order-' + generateUUID();
+                const customerName = document.getElementById('customerName').textContent;
+                const orderID = document.getElementById('order_code').textContent;
                 const grossAmount = document.getElementById('total_price').textContent;
                 // Success to get card token_id, implement as you wish here
                 //  console.log('Success to get card token_id, response:', response);
@@ -805,6 +834,7 @@
                                 .getAttribute('content')
                         },
                         body: JSON.stringify({
+                            name: customerName,
                             order_id: orderID,
                             gross_amount: grossAmount,
                             token_id: token_id
@@ -816,10 +846,56 @@
 
                     if (responseData.success) {
                         const redirect_url = responseData.data.redirect_url;
+                        var popupModal = (function() {
+                            var modal = null;
+                            return {
+                                openPopup(redirect_url) {
+                                    modal = picoModal({
+                                        content: '<iframe frameborder="0" style="height:90vh; width:100%;" src="' +
+                                        redirect_url + '"></iframe>',
+                                        width: "75%",
+                                        closeButton: false,
+                                        overlayClose: false,
+                                        escCloses: false
+                                    }).show();
+                                },
+                                closePopup() {
+                                    try {
+                                        modal.close();
+                                    } catch (e) {}
+                                }
+                            }
+                        }());
+                        // callback functions
+                        var options = {
+                            performAuthentication: function(redirect_url) {
+                                // Implement how you will open iframe to display 3ds authentication redirect_url to customer
+                                popupModal.openPopup(redirect_url);
+                            },
+                            onSuccess: function(response) {
+                                // 3ds authentication success, implement payment success scenario
+                                console.log('response:', response);
+                                alert('sukses');
+                                popupModal.closePopup();
+                                // // Simulate an HTTP redirect:
+                                window.location.replace("http://127.0.0.1:8000");
+                            },
+                            onFailure: function(response) {
+                                // 3ds authentication failure, implement payment failure scenario
+                                console.log('response:', response);
+                                alert(response);
+                            },
+                            onPending: function(response) {
+                                // transaction is pending, transaction result will be notified later via 
+                                // HTTP POST notification, implement as you wish here
+                                console.log('response:', response);
+                                alert(response);
+                                popupModal.closePopup();
+                            }
+                        };
 
-
-
-
+                        // trigger `authenticate` function
+                        MidtransNew3ds.authenticate(redirect_url, options);
                     } else {
                         console.error('Error:', responseData.error);
                     }
@@ -845,56 +921,22 @@
         MidtransNew3ds.getCardToken(cardData, options);
 
     }
-
-    async function creditCard(token_id) {
-        const orderID = 'order-' + generateUUID();
-        const grossAmount = document.getElementById('total_price').textContent;
-        // Success to get card token_id, implement as you wish here
-        //  console.log('Success to get card token_id, response:', response);
-
-
-        const response = await fetch('/credit-card', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                    .getAttribute('content')
-            },
-            body: JSON.stringify({
-                order_id: orderID,
-                gross_amount: grossAmount,
-                token_id: token_id
-
-            })
-        });
-
-        // const responseData = await response.json();
-        // if (responseData.success) {
-        //     console.log(responseData.status_message)
-
-        // }else{
-        //      console.error('Error:', responseData.error);
-        // }
-
-    }
-
-
-
-
-    function generateUUID() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0,
-                v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    }
+    
+    //generate uuid
+    // function generateUUID() {
+    //     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    //         var r = Math.random() * 16 | 0,
+    //             v = c === 'x' ? r : (r & 0x3 | 0x8);
+    //         return v.toString(16);
+    //     });
+    // }
 
     async function qris() {
         const card1 = document.getElementById('card1');
         const card3 = document.getElementById('card3');
 
-        const costumerName = document.getElementById('name').textContent;
-        const orderID = 'order-' + generateUUID();
+        const customerName = document.getElementById('customerName').textContent;
+        const orderID = document.getElementById('order_code').textContent;
         const grossAmount = document.getElementById('total_price').textContent;
         const bank = event.currentTarget.id;
 
@@ -908,6 +950,7 @@
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
+                name: customerName,
                 order_id: orderID,
                 gross_amount: grossAmount
             })
@@ -929,8 +972,8 @@
         const card1 = document.getElementById('card1');
         const card3 = document.getElementById('card4');
 
-        const costumerName = document.getElementById('name').textContent;
-        const orderID = 'order-' + generateUUID();
+        const customerName = document.getElementById('customerName').textContent;
+        const orderID = document.getElementById('order_code').textContent;
         const grossAmount = document.getElementById('total_price').textContent;
         const bank = event.currentTarget.id;
 
@@ -944,6 +987,7 @@
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
+                name: customerName,
                 order_id: orderID,
                 gross_amount: grossAmount
             })
@@ -972,8 +1016,8 @@
         // button.style.display = 'block';
         // metod.style.display = 'none';
 
-        const costumerName = document.getElementById('name').textContent;
-        const orderID = 'order-' + generateUUID();
+        const customerName = document.getElementById('customerName').textContent;
+        const orderID = document.getElementById('order_code').textContent;
         const grossAmount = document.getElementById('total_price').textContent;
         const bank = event.currentTarget.id;
 
@@ -987,6 +1031,7 @@
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
+                name: customerName,
                 order_id: orderID,
                 gross_amount: grossAmount,
                 bank: bank
