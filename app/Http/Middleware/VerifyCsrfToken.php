@@ -13,7 +13,10 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        '/virtual-account',
-        'va'
+        'credit-card',
+        'mandiri',
+        'va',
+        'gopay',
+        'qris'
     ];
 }

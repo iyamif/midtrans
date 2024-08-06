@@ -25,6 +25,7 @@ Route::post('/order/save', [OrderController::class, 'saveOrder'])->name('saveOrd
 route::get('order-direct', [PaymentController::class, 'directApi']);
 route::post('payment-api', [PaymentController::class, 'paymentApi']);
 route::post('va', [PaymentController::class, 'virtualAccount']);
+route::post('mandiri', [PaymentController::class, 'mandiriBill']);
 route::post('qris', [PaymentController::class, 'qris']);
 route::post('gopay', [PaymentController::class, 'gopay']);
 route::post('credit-card', [PaymentController::class, 'creditCard']);

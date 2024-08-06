@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Page</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <script id="midtrans-script" type="text/javascript"
-    src="https://api.sanbox.midtrans.com/v2/assets/js/midtrans-new-3ds.min.js" data-environment="sandbox"
-    data-client-key="SB-Mid-client-zBGmz6N1Pw3HTXwf"></script> --}}
+        src="https://api.sanbox.midtrans.com/v2/assets/js/midtrans-new-3ds.min.js" data-environment="sandbox"
+        data-client-key="SB-Mid-client-zBGmz6N1Pw3HTXwf"></script> --}}
     <script id="midtrans-script" type="text/javascript"
         src="https://api.sandbox.midtrans.com/v2/assets/js/midtrans-new-3ds.min.js" data-environment="sandbox"
         data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
@@ -106,7 +105,7 @@
 
         p {
             color: #ffffff;
-            text-align: left;
+            text-align: center;
         }
 
         .plan-box {
@@ -311,7 +310,7 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 2px;
             /* Increase bottom margin for spacing between form groups */
         }
 
@@ -547,11 +546,11 @@
             <h2>CHECKOUT</h2>
             <p>Please make the payment to start enjoying all the features of our premium plan as soon as possible</p>
             <div class="plan-box">
-                <span id="order_code" style="color: #ccc">{{ $orderCode }}</span>
+                <span style="display: none" id="order_code" style="color: #ccc">{{ $orderCode }}</span>
                 <div class="plan-info">
                     <img src="images/ck.png" alt="Small Business">
                     <div>
-                        <p class="plan-title" id="customerName"> {{ $name }}</p>
+                        <h3 class="plan-title" id="customerName"> {{ $name }}</h3>
                         <a href="#" class="change-plan">TOTAL PAYMENT</a>
                     </div>
                 </div>
@@ -577,7 +576,7 @@
                             <img src="images/jbc.png" alt="Credit Card">
                         </div>
                     </div>
-                    <button class="cvc-button" onclick="toggleCards()">Pilih</button>
+                    <button class="cvc-button" onclick="getCreditCardToken()">Pilih</button>
                 </div>
                 <p class="method-label">Virtual Account</p>
                 <div class="payment-method" onclick="toggleBankButtons()">
@@ -601,7 +600,7 @@
                     <button class="cvc-button" onclick="toggleBankButtons()">Pilih</button>
                 </div>
                 <div class="bank-buttons" id="bank-buttons">
-                    <button class="bank-button" id="mandiri" onclick="selectBank()">
+                    <button class="bank-button" id="mandiri" onclick="mandiriBill()">
                         <img src="images/mandiri.png" alt="Credit Card">
                     </button>
                     <button class="bank-button" id="bni" onclick="selectBank()">
@@ -660,6 +659,11 @@
                     <img src="" id="qr-code-img" class="qr-code-img" alt="QR Code">
                 </div>
             </div>
+            <div id="cardgopay" class="payment-container2" style="display: none;">
+                <div class="payment-method2">
+                    <img src="" id="gopay-code-img" class="qr-code-img" alt="QR Code">
+                </div>
+            </div>
             <div id="cardbank" class="payment-container2" style="display: none;">
                 <div class="payment-method2">
                     <div id="virtual-account-container" class="container">
@@ -684,90 +688,59 @@
                     </div>
                 </div>
             </div>
-            <div id="card2" class="payment-container2" style="display: none;">
+            <div id="mandiri-bill" class="payment-container2" style="display: none;">
                 <div class="payment-method2">
-                    {{-- <form>
-                        <div class="form-group">
-                            <label for="card-number" onclick="toggleToCard1()">Card Number</label>
-                            <input type="text" id="card-number" name="card-number" required>
+                    <div id="mandiri-bill-container" class="container">
+                        <div class="account-info">
+                            <p><span class="label">Virtual Account</span> </p>
+                            <img src="images/mandiri.png" alt="BNI Logo">
                         </div>
-                        <div class="form-group flex-container">
-                            <div class="form-group">
-                                <label for="exp-date">Exp Date</label>
-                                <input type="text" id="exp-date" name="exp-date" placeholder="MM/YY"
-                                    maxlength="5" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="cvv">cvv</label>
-                                <input type="text" id="cvv" name="cvv" maxlength="2" required>
-                            </div>
-                        </div>
-                          <button class="cvc-button" id="qr" onclick="paymentCredit()">Pilih</button>
-                    </form> --}}
-                    <div class="form-group">
-                        <input type="text" id="card_number" placeholder="Card Number" value="4811111111111114">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="card_exp_month" placeholder="Expiry Month (MM)" value="12">
-                        <div class="form-group">
-                            <input type="text" id="card_exp_year" placeholder="Expiry Year (YYYY)"
-                                value="2029">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="card_cvv" placeholder="CVV" value="123">
-                        </div>
-                        <div class="form-group">
 
-                            <button class="payment-button" onclick="getCreditCardToken()" style="display: block">Get
-                                Token</button>
+                        <div class="account-details">
+                            <p><span class="label">company code :</span> </p>
+                            <p> <span class="value" id="biller-code"></span> <a href="#" class="payment-link"
+                                    onclick="copyText('virtual-account')">Copy</a></p>
+
                         </div>
+                        <div class="account-details">
+                            <p><span class="label">Nomor Virtual Account :</span> </p>
+                            <p> <span class="value" id="bill-key"></span> <a href="#" class="payment-link"
+                                    onclick="copyText('virtual-account')">Copy</a></p>
+
+                        </div>
+                        <a href="#" class="payment-link">Lihat Cara Pembayaran</a>
                     </div>
                 </div>
-                <div id="card5" class="payment-container2" style="display: none;">
-                    <div class="payment-method2">
-                        {{-- <form>
+            </div>
+            <div id="card2" class="payment-container2" style="display: none;">
+                <div class="payment-method2">
+                    <form>
                         <div class="form-group">
-                            <label for="card-number" onclick="toggleToCard1()">Card Number</label>
-                            <input type="text" id="card-number" name="card-number" required>
-                        </div>
-                        <div class="form-group flex-container">
-                            <div class="form-group">
-                                <label for="exp-date">Exp Date</label>
-                                <input type="text" id="exp-date" name="exp-date" placeholder="MM/YY"
-                                    maxlength="5" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="cvv">cvv</label>
-                                <input type="text" id="cvv" name="cvv" maxlength="2" required>
-                            </div>
-                        </div>
-                          <button class="cvc-button" id="qr" onclick="paymentCredit()">Pilih</button>
-                    </form> --}}
-                        <div class="form-group">
+                            <label for="exp-date">Card Number</label>
                             <input type="text" id="card_number" placeholder="Card Number"
                                 value="4811111111111114">
                         </div>
-                        <div class="form-group">
-                            <input type="text" id="card_exp_month" placeholder="Expiry Month (MM)"
-                                value="12">
+                        <div class="form-group flex-container">
                             <div class="form-group">
-                                <input type="text" id="card_exp_year" placeholder="Expiry Year (YYYY)"
-                                    value="2029">
+                                <label for="exp-date">Exp Date</label>
+                                <input type="text" id="card_exp_month" placeholder="Expire Month (MM)"
+                                    maxlength="2" value="12">
                             </div>
                             <div class="form-group">
-                                <input type="text" id="card_cvv" placeholder="CVV" value="123">
-                            </div>
-                            <div class="form-group">
-
-                                <button class="payment-button" onclick="getCreditCardToken()"
-                                    style="display: block">Get
-                                    Token</button>
+                                <label for="exp-date">Exp Year</label>
+                                <input type="text" id="card_exp_year" placeholder="CVV" value="2024"
+                                    maxlength="4">
                             </div>
                         </div>
-                    </div>
-                    <a href="#" class="add-method"></a>
-                    {{-- <input type="email" placeholder="Email address"> --}}
-                    <button class="payment-button" id="button" style="display: none;">CHECK STATUS </button>
+                        <div class="form-group">
+                            <label for="cvv">cvv</label>
+                            <input type="text" id="card_cvv" name="cvv" value="123" required>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px">
+                            <button id="button" class="payment-button" onclick="getCreditCardToken(event)"
+                                style="display: block">KONFIRMASI</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 </body>
@@ -782,29 +755,25 @@
     function toggleCards() {
         const card1 = document.getElementById('card1');
         const card2 = document.getElementById('card2');
-        const button = document.getElementById('button');
-
 
         card1.style.display = 'none';
         card2.style.display = 'block';
-        button.style.display = 'block';
 
     }
 
     function toggleToCard1() {
         const card1 = document.getElementById('card1');
         const card2 = document.getElementById('card2');
-        const button = document.getElementById('button');
 
 
         card1.style.display = 'block';
         card2.style.display = 'none';
-        button.style.display = 'none';
 
 
     }
 
-    async function getCreditCardToken() {
+    async function getCreditCardToken(e) {
+        e.preventDefault();
         // card data from customer input, for example
         var cardData = {
             "card_number": 4811111111111114,
@@ -852,7 +821,7 @@
                                 openPopup(redirect_url) {
                                     modal = picoModal({
                                         content: '<iframe frameborder="0" style="height:90vh; width:100%;" src="' +
-                                        redirect_url + '"></iframe>',
+                                            redirect_url + '"></iframe>',
                                         width: "75%",
                                         closeButton: false,
                                         overlayClose: false,
@@ -921,7 +890,7 @@
         MidtransNew3ds.getCardToken(cardData, options);
 
     }
-    
+
     //generate uuid
     // function generateUUID() {
     //     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -970,7 +939,7 @@
 
     async function gopayCards() {
         const card1 = document.getElementById('card1');
-        const card3 = document.getElementById('card4');
+        const card3 = document.getElementById('cardgopay');
 
         const customerName = document.getElementById('customerName').textContent;
         const orderID = document.getElementById('order_code').textContent;
@@ -1040,7 +1009,6 @@
 
         const responseData = await response.json();
         if (responseData.success) {
-            console.log(responseData.data)
             if (responseData.data.status_message != 'Success, PERMATA VA transaction is successful') {
                 const vaNumber = responseData.data.va_numbers[0].va_number;
                 const vaNumberContainer = document.getElementById('virtual-account-container');
@@ -1048,19 +1016,72 @@
                 vaNumberElement.textContent = vaNumber;
                 vaNumberContainer.style.display = 'block';
             } else {
-
-                const vaNumber = responseData.permata_va_number;
+                const vaNumber = responseData.data.permata_va_number;
                 const vaNumberContainer = document.getElementById('virtual-account-container');
                 const vaNumberElement = document.getElementById('va-number');
-                vaNumberElement.textContent = vaNumber; // Mengisi elemen dengan va_number
-
+                vaNumberElement.textContent = vaNumber;
                 vaNumberContainer.style.display = 'block';
             }
         } else {
             console.error('Error:', responseData.error);
         }
+    }
+
+    async function mandiriBill() {
+        const card1 = document.getElementById('card1');
+        const mandiri = document.getElementById('mandiri-bill');
+        // const button = document.getElementById('button');
+        // const metod = document.getElementById('metod');
 
 
+        // button.style.display = 'block';
+        // metod.style.display = 'none';
+        card1.style.display = 'none';
+        mandiri.style.display = 'block';
+
+        const customerName = document.getElementById('customerName').textContent;
+        const orderID = document.getElementById('order_code').textContent;
+        const grossAmount = document.getElementById('total_price').textContent;
+        const bank = event.currentTarget.id;
+
+      
+
+        const response = await fetch('/mandiri', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                name: customerName,
+                order_id: orderID,
+                gross_amount: grossAmount,
+                bank: bank
+            })
+        });
+
+        const responseData = await response.json();
+        console.log(responseData)
+        if (responseData.success) {
+            // if (responseData.data.status_message != 'Success, PERMATA VA transaction is successful') {
+                const vaNumber = responseData.data.bill_key;
+                const companyCode = responseData.data.biller_code;
+                const vaNumberContainer = document.getElementById('mandiri-bill-container');
+                const vaNumberElement = document.getElementById('bill-key');
+                const codeBiller = document.getElementById('biller-code');
+                codeBiller.textContent = companyCode;
+                vaNumberElement.textContent = vaNumber;
+                vaNumberContainer.style.display = 'block';
+            // } else {
+                // const vaNumber = responseData.data.permata_va_number;
+                // const vaNumberContainer = document.getElementById('virtual-account-container');
+                // const vaNumberElement = document.getElementById('va-number');
+                // vaNumberElement.textContent = vaNumber;
+                // vaNumberContainer.style.display = 'block';
+            // }
+        } else {
+            console.error('Error:', responseData.error);
+        }
     }
 
     function copyText(elementId) {

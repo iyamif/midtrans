@@ -149,6 +149,63 @@ class PaymentController extends Controller
         
     }
 
+    public function mandiriBill(Request $request){
+        try {
+            DB::beginTransaction();
+            // $serverKey = 'YOUR_SERVER_KEY'; // Ganti dengan server key Anda
+            $orderID = $request->input('order_id');
+            $grossAmount = $request->input('gross_amount');
+            $bank = $request->input('bank');
+            $name =    $request->input('name');
+
+            $serverKey = env('MIDTRANS_SERVER_KEY');
+
+            $order = Order::create([
+                'shop_id' => 1,
+                'order_code' => $orderID,
+                'name' => $name,
+                'phone' => '999999999',
+                'address' => 'Jalan Dummy',
+                'note' => 'Lorem Ipsum',
+                'total' => $grossAmount,
+                'status' => 0,
+                'status_payment' => 'Unpaid'
+            ]);
+
+            $data = [
+                'payment_type' => 'echannel',
+                'transaction_details' => [
+                    'order_id' => $orderID,
+                    'gross_amount' => $grossAmount,
+                ],
+                'echannel' => [
+                    'bill_info1' => 'Payment:',
+                    'bill_info2' => 'Online purchase'
+                ],
+            ];
+
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                // 'Authorization' => 'Basic TWlkLXNlcnZlci1yTXhvcVFQakhEck1rM0RKSUNwZ1UxUDk6',
+                'Authorization' => 'Basic ' . base64_encode($serverKey . ':'),
+                'Content-Type' => 'application/json',
+            ])->post(env('URL_MIDTRANS'), $data);
+
+            //	dd($response);
+
+            if ($response->successful()) {
+                DB::commit();
+                return response()->json(['success' => true, 'data' => $response->json()], 200);
+            } else {
+                DB::rollBack();
+                return response()->json(['success' => false, 'error' => $response->json()], $response->status());
+            }
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+        }
+    }
+
 
     public function qris(Request $request)
     {
