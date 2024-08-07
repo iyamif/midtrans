@@ -317,7 +317,6 @@ class PaymentController extends Controller
         }catch(Exception $e){
             DB::rollBack();
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
-        }
-        
+        }        
     }
 }

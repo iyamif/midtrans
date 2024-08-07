@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,6 +69,16 @@
             /* max-width: 300px; */
         }
 
+        .payment-container3 {
+            /* background-color: #292929; */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* padding: 5px; */
+            width: 90%;
+            max-width: 400px;
+            align-content: center;
+        }
+
         /* Gaya scroll bar */
         .payment-container2::-webkit-scrollbar {
             width: 8px;
@@ -97,10 +108,26 @@
             align-items: center;
         }
 
+        .payment-box2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 400px;
+        }
+
         h2 {
             color: #ffffff;
             margin: 0;
             font-size: 1.5rem;
+        }
+
+        h6 {
+            /* background-color: #c3c3c3; */
+            color: #1b1b1b;
+            margin: 10px 2px 0px 2px;
+            font-size: 2.3rem;
+            border-radius: 4px;
+            width: 100%
         }
 
         p {
@@ -158,6 +185,12 @@
             align-self: flex-start;
         }
 
+        h4 {
+            color: #000000;
+            margin: 10px 0 5px;
+            align-self: flex-center;
+        }
+
         .method-label {
             color: #ffffff;
             align-self: flex-start;
@@ -194,6 +227,14 @@
             /* padding: 10px; */
             width: 95%;
             /* margin: 5px 0; */
+        }
+
+        .payment-method3 {
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
 
         .card-info {
@@ -290,11 +331,46 @@
 
         .payment-button {
             background-color: #357edd;
+            margin-top: 10px;
             color: #ffffff;
             border: none;
             border-radius: 4px;
             padding: 10px;
             width: 100%;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .payment-button2 {
+            background-color: #02a726;
+            margin-top: 10px;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            width: 80%;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+         .payment-button3 {
+            background-color: #ffd900;
+            margin-top: 10px;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            width: 80%;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .payment-button4 {
+            background-color: #ff0400;
+            margin-top: 10px;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            width: 80%;
             cursor: pointer;
             font-size: 1rem;
         }
@@ -361,6 +437,19 @@
             max-width: 400px;
             /* Maksimum lebar gambar untuk menghindari ukuran terlalu besar */
             height: 200px;
+            /* Tinggi otomatis untuk menjaga aspek rasio */
+            object-fit: contain;
+            /* Menjaga aspek rasio gambar */
+            display: block;
+            /* Menghilangkan jarak bawah default pada gambar */
+        }
+
+        .state-code-img {
+            width: 100%;
+            /* Lebar gambar QR code 90% dari lebar kontainer */
+            max-width: 400px;
+            /* Maksimum lebar gambar untuk menghindari ukuran terlalu besar */
+            height: 300px;
             /* Tinggi otomatis untuk menjaga aspek rasio */
             object-fit: contain;
             /* Menjaga aspek rasio gambar */
@@ -537,13 +626,38 @@
             display: inline-block;
             margin: 10px 0;
         }
+
+        .payment-success {
+            /* width: 100%; */
+            text-align: center;
+            background: #fff;
+            height: 500px;
+            padding: 5px;
+            margin: 0.5px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-success .icon {
+            margin-bottom: 20px;
+        }
+
+        .payment-success .icon img {
+            width: 300px;
+            height: 300px;
+        }
+
+        .payment-success .message {
+            font-size: 1.5em;
+            color: #333;
+        }
     </style>
 </head>
 
 <body>
-    <div class="payment-container">
-        <div class="payment-box">
-            <h2>CHECKOUT</h2>
+    <div class="payment-container" id="payment-container" style="display:block">
+        <div class="payment-box" id="payment-box">
+            <h2>PAYMENT</h2>
             <p>Please make the payment to start enjoying all the features of our premium plan as soon as possible</p>
             <div class="plan-box">
                 <span style="display: none" id="order_code" style="color: #ccc">{{ $orderCode }}</span>
@@ -560,7 +674,7 @@
                     {{-- <span>/ year</span> --}}
                 </div>
             </div>
-            <h3 id="metod">Pilih Metode Pembayaran</h3>
+            <h3 id="method-choice" style="display: block">Pilih Metode Pembayaran</h3>
             <h3 style="display: none">Bayar Sebelum</h3>
             <div id="card1" class="payment-container2">
                 <p class="method-label">Credit/debit card</p>
@@ -578,7 +692,7 @@
                     </div>
                     <button class="cvc-button" onclick="getCreditCardToken()">Pilih</button>
                 </div>
-                <p class="method-label">Virtual Account</p>
+                <p class="method-label"><span class="label">Virtual Account</span></p>
                 <div class="payment-method" onclick="toggleBankButtons()">
                     <div class="card-info">
                         <div>
@@ -654,14 +768,25 @@
                     <button class="cvc-button" id="qr" onclick="toggleCards()">Pilih</button>
                 </div>
             </div>
+            <div id="status-payment" class="payment-container2" style="display: none">
+                <div class="payment-success">
+                    <div class="payment-method3">
+                        <img src="images/success.gif" alt="Checkmark Icon" class="qr-code-img">
+                    </div>
+                    <div class="message">
+                        <h4> IDR 1,0000,000 </h4>
+                        <h4> Payment Successful ! </h4>
+                    </div>
+                </div>
+            </div>
             <div id="card3" class="payment-container2" style="display: none;">
-                <div class="payment-method2">
-                    <img src="" id="qr-code-img" class="qr-code-img" alt="QR Code">
+                <div class="payment-method3">
+                    <img src="images/loading.gif" id="qr-code-img" class="qr-code-img" alt="QR Code">
                 </div>
             </div>
             <div id="cardgopay" class="payment-container2" style="display: none;">
-                <div class="payment-method2">
-                    <img src="" id="gopay-code-img" class="qr-code-img" alt="QR Code">
+                <div class="payment-method3">
+                    <img src="images/loading.gif" id="gopay-code-img" class="qr-code-img" alt="QR Code">
                 </div>
             </div>
             <div id="cardbank" class="payment-container2" style="display: none;">
@@ -695,18 +820,15 @@
                             <p><span class="label">Virtual Account</span> </p>
                             <img src="images/mandiri.png" alt="BNI Logo">
                         </div>
-
                         <div class="account-details">
                             <p><span class="label">company code :</span> </p>
                             <p> <span class="value" id="biller-code"></span> <a href="#" class="payment-link"
                                     onclick="copyText('virtual-account')">Copy</a></p>
-
                         </div>
                         <div class="account-details">
                             <p><span class="label">Nomor Virtual Account :</span> </p>
                             <p> <span class="value" id="bill-key"></span> <a href="#" class="payment-link"
                                     onclick="copyText('virtual-account')">Copy</a></p>
-
                         </div>
                         <a href="#" class="payment-link">Lihat Cara Pembayaran</a>
                     </div>
@@ -740,9 +862,32 @@
                             <button id="button" class="payment-button" onclick="getCreditCardToken(event)"
                                 style="display: block">KONFIRMASI</button>
                         </div>
+
                     </form>
                 </div>
             </div>
+            <button id="cek-status-payment" class="payment-button" onclick="cekstatus()" style="display: none">cek
+                status</button>
+            <button id="back-payment" class="payment-button" onclick="cekstatus()"
+                style="display: none">Back</button>
+        </div>
+    </div>
+    <div class="payment-container3" id="payment-sukses" style="display: none">
+        <div class="payment-success">
+            <h6>STATUS PAYMENT</h6>
+
+            <div class="payment-method3">
+                <img id="images" src="images/success.gif" alt="Checkmark Icon" class="state-code-img"
+                    style="display: none">
+            </div>
+            <div class="message">
+                <h4> IDR 1,0000,000 </h4>
+                <h4> Payment Successful ! </h4>
+            </div>
+            <button id="back-payment-test" class="payment-button2" onclick="cekstatus()"
+                >Pending</button>
+        </div>
+    </div>
 </body>
 
 <script>
@@ -764,7 +909,6 @@
     function toggleToCard1() {
         const card1 = document.getElementById('card1');
         const card2 = document.getElementById('card2');
-
 
         card1.style.display = 'block';
         card2.style.display = 'none';
@@ -891,18 +1035,13 @@
 
     }
 
-    //generate uuid
-    // function generateUUID() {
-    //     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    //         var r = Math.random() * 16 | 0,
-    //             v = c === 'x' ? r : (r & 0x3 | 0x8);
-    //         return v.toString(16);
-    //     });
-    // }
 
     async function qris() {
+
+        const method = document.getElementById('method-choice');
         const card1 = document.getElementById('card1');
         const card3 = document.getElementById('card3');
+        const button = document.getElementById('cek-status-payment');
 
         const customerName = document.getElementById('customerName').textContent;
         const orderID = document.getElementById('order_code').textContent;
@@ -911,6 +1050,8 @@
 
         card1.style.display = 'none';
         card3.style.display = 'block';
+        method.style.display = 'none';
+        button.style.display = 'block';
 
         const response = await fetch('/qris', {
             method: 'POST',
@@ -938,8 +1079,11 @@
     }
 
     async function gopayCards() {
+
+        const method = document.getElementById('method-choice');
         const card1 = document.getElementById('card1');
         const card3 = document.getElementById('cardgopay');
+        const button = document.getElementById('cek-status-payment');
 
         const customerName = document.getElementById('customerName').textContent;
         const orderID = document.getElementById('order_code').textContent;
@@ -948,6 +1092,8 @@
 
         card1.style.display = 'none';
         card3.style.display = 'block';
+        method.style.display = 'none';
+        button.style.display = 'block';
 
         const response = await fetch('/gopay', {
             method: 'POST',
@@ -976,9 +1122,11 @@
 
 
     async function selectBank() {
+
+        const method = document.getElementById('method-choice');
         const card1 = document.getElementById('card1');
         const card5 = document.getElementById('cardbank');
-        // const button = document.getElementById('button');
+        const button = document.getElementById('cek-status-payment');
         // const metod = document.getElementById('metod');
 
 
@@ -992,6 +1140,8 @@
 
         card1.style.display = 'none';
         card5.style.display = 'block';
+        button.style.display = 'block';
+        method.style.display = 'none';
 
         const response = await fetch('/va', {
             method: 'POST',
@@ -1028,23 +1178,28 @@
     }
 
     async function mandiriBill() {
+
+        const method = document.getElementById('method-choice');
         const card1 = document.getElementById('card1');
         const mandiri = document.getElementById('mandiri-bill');
+        const button = document.getElementById('cek-status-payment');
         // const button = document.getElementById('button');
         // const metod = document.getElementById('metod');
 
 
         // button.style.display = 'block';
-        // metod.style.display = 'none';
+        method.style.display = 'none';
         card1.style.display = 'none';
         mandiri.style.display = 'block';
+        button.style.display = 'block';
+
 
         const customerName = document.getElementById('customerName').textContent;
         const orderID = document.getElementById('order_code').textContent;
         const grossAmount = document.getElementById('total_price').textContent;
         const bank = event.currentTarget.id;
 
-      
+
 
         const response = await fetch('/mandiri', {
             method: 'POST',
@@ -1064,24 +1219,58 @@
         console.log(responseData)
         if (responseData.success) {
             // if (responseData.data.status_message != 'Success, PERMATA VA transaction is successful') {
-                const vaNumber = responseData.data.bill_key;
-                const companyCode = responseData.data.biller_code;
-                const vaNumberContainer = document.getElementById('mandiri-bill-container');
-                const vaNumberElement = document.getElementById('bill-key');
-                const codeBiller = document.getElementById('biller-code');
-                codeBiller.textContent = companyCode;
-                vaNumberElement.textContent = vaNumber;
-                vaNumberContainer.style.display = 'block';
+            const vaNumber = responseData.data.bill_key;
+            const companyCode = responseData.data.biller_code;
+            const vaNumberContainer = document.getElementById('mandiri-bill-container');
+            const vaNumberElement = document.getElementById('bill-key');
+            const codeBiller = document.getElementById('biller-code');
+            codeBiller.textContent = companyCode;
+            vaNumberElement.textContent = vaNumber;
+            vaNumberContainer.style.display = 'block';
             // } else {
-                // const vaNumber = responseData.data.permata_va_number;
-                // const vaNumberContainer = document.getElementById('virtual-account-container');
-                // const vaNumberElement = document.getElementById('va-number');
-                // vaNumberElement.textContent = vaNumber;
-                // vaNumberContainer.style.display = 'block';
+            // const vaNumber = responseData.data.permata_va_number;
+            // const vaNumberContainer = document.getElementById('virtual-account-container');
+            // const vaNumberElement = document.getElementById('va-number');
+            // vaNumberElement.textContent = vaNumber;
+            // vaNumberContainer.style.display = 'block';
             // }
         } else {
             console.error('Error:', responseData.error);
         }
+    }
+
+    function cekstatus() {
+
+       
+        const card1 = document.getElementById('payment-container')
+        const card2 = document.getElementById('payment-sukses')
+        const button = document.getElementById('back-payment-test');
+
+        card1.style.display = 'none';
+        card2.style.display = 'block';
+
+         var status = 'pending';
+
+        if (status === 'pending') {
+            const image = document.getElementById('images');
+            image.src = 'images/pending.gif';
+            image.style.display = 'block';
+            button.innerText = 'PENDING';
+            button.className = 'payment-button3';
+        } else if (status === 'success') {
+            const image = document.getElementById('images');
+            image.src = 'images/success.gif';
+            image.style.display = 'block';
+            button.innerText = 'SUCCESS';
+            button.className = 'payment-button2';
+        } else {
+            const image = document.getElementById('images');
+            image.src = 'images/reject.gif';
+            image.style.display = 'block';
+            button.innerText = 'FAILED';
+            button.className = 'payment-button4';
+        }
+
     }
 
     function copyText(elementId) {
