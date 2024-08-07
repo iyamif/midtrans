@@ -352,7 +352,8 @@
             cursor: pointer;
             font-size: 1rem;
         }
-         .payment-button3 {
+
+        .payment-button3 {
             background-color: #ffd900;
             margin-top: 10px;
             color: #ffffff;
@@ -363,6 +364,7 @@
             cursor: pointer;
             font-size: 1rem;
         }
+
         .payment-button4 {
             background-color: #ff0400;
             margin-top: 10px;
@@ -651,6 +653,15 @@
             font-size: 1.5em;
             color: #333;
         }
+
+        .form-group .is-invalid {
+            border-color: #dc3545;
+            border-top-width: 2px;
+            border-right-width: 2px;
+            border-bottom-width: 2px;
+            border-left-width: 2px;
+            border-style: solid;
+        }
     </style>
 </head>
 
@@ -677,95 +688,104 @@
             <h3 id="method-choice" style="display: block">Pilih Metode Pembayaran</h3>
             <h3 style="display: none">Bayar Sebelum</h3>
             <div id="card1" class="payment-container2">
-                <p class="method-label">Credit/debit card</p>
-                <div class="payment-method" onclick="toggleCards()">
-                    <div class="card-info">
-                        <div>
-                            <img src="images/mc.png" alt="Credit Card">
+                <div id="credit-card">
+                    <p class="method-label">Credit/debit card</p>
+                    <div class="payment-method" onclick="toggleCards()">
+                        <div class="card-info">
+                            <div>
+                                <img src="images/mc.png" alt="Credit Card">
+                            </div>
+                            <div>
+                                <img src="images/vc.png" alt="Credit Card">
+                            </div>
+                            <div>
+                                <img src="images/jbc.png" alt="Credit Card">
+                            </div>
                         </div>
-                        <div>
-                            <img src="images/vc.png" alt="Credit Card">
-                        </div>
-                        <div>
-                            <img src="images/jbc.png" alt="Credit Card">
-                        </div>
+                        <button class="cvc-button" onclick="getCreditCardToken()">Pilih</button>
                     </div>
-                    <button class="cvc-button" onclick="getCreditCardToken()">Pilih</button>
                 </div>
-                <p class="method-label"><span class="label">Virtual Account</span></p>
-                <div class="payment-method" onclick="toggleBankButtons()">
-                    <div class="card-info">
-                        <div>
-                            <img src="images/mandiri.jpg" alt="Credit Card">
+                <div id="virtual-account">
+                    <p class="method-label"><span class="label">Virtual Account</span></p>
+                    <div class="payment-method" onclick="toggleBankButtons()">
+                        <div class="card-info">
+                            <div>
+                                <img src="images/mandiri.jpg" alt="Credit Card">
+                            </div>
+                            <div>
+                                <img src="images/bni.webp" alt="Credit Card">
+                            </div>
+                            <div>
+                                <img src="images/bri.webp" alt="Credit Card">
+                            </div>
+                            <div>
+                                <img src="images/permata.jpg" alt="Credit Card">
+                            </div>
+                            <div>
+                                <img src="images/cimb.jpg" alt="Credit Card">
+                            </div>
                         </div>
-                        <div>
-                            <img src="images/bni.webp" alt="Credit Card">
-                        </div>
-                        <div>
+                        <button class="cvc-button" onclick="toggleBankButtons()">Pilih</button>
+                    </div>
+                    <div class="bank-buttons" id="bank-buttons">
+                        <button class="bank-button" id="mandiri" onclick="mandiriBill()">
+                            <img src="images/mandiri.png" alt="Credit Card">
+                        </button>
+                        <button class="bank-button" id="bni" onclick="selectBank()">
+                            <img src="images/bni.png" alt="Credit Card">
+                        </button>
+                        <button class="bank-button" id="bri" onclick="selectBank()">
                             <img src="images/bri.webp" alt="Credit Card">
-                        </div>
-                        <div>
+                        </button>
+                        <button class="bank-button" id="permata" onclick="selectBank()">
                             <img src="images/permata.jpg" alt="Credit Card">
-                        </div>
-                        <div>
+                        </button>
+                        <button class="bank-button" id="cimb" onclick="selectBank()">
                             <img src="images/cimb.jpg" alt="Credit Card">
-                        </div>
-                    </div>
-                    <button class="cvc-button" onclick="toggleBankButtons()">Pilih</button>
-                </div>
-                <div class="bank-buttons" id="bank-buttons">
-                    <button class="bank-button" id="mandiri" onclick="mandiriBill()">
-                        <img src="images/mandiri.png" alt="Credit Card">
-                    </button>
-                    <button class="bank-button" id="bni" onclick="selectBank()">
-                        <img src="images/bni.png" alt="Credit Card">
-                    </button>
-                    <button class="bank-button" id="bri" onclick="selectBank()">
-                        <img src="images/bri.webp" alt="Credit Card">
-                    </button>
-                    <button class="bank-button" id="permata" onclick="selectBank()">
-                        <img src="images/permata.jpg" alt="Credit Card">
-                    </button>
-                    <button class="bank-button" id="cimb" onclick="selectBank()">
-                        <img src="images/cimb.jpg" alt="Credit Card">
-                    </button>
+                        </button>
 
-                    <button class="bank-button" id="others" onclick="selectBank(this)">
-                        Other Banks
-                    </button>
-                </div>
-                <p class="method-label">Qris</p>
-                <div class="payment-method" onclick="qris()">
-                    <div class="card-info">
-                        <div>
-                            <img src="images/qris.png" alt="Credit Card">
-                        </div>
-                        <div>
-                            <img src="images/ovo.png" alt="Credit Card">
-                        </div>
-                        <div>
-                            <img src="images/dana.jpg" alt="Credit Card">
-                        </div>
-                        <div>
-                            <img src="images/link.png" alt="Credit Card">
-                        </div>
+                        <button class="bank-button" id="others" onclick="selectBank(this)">
+                            Other Banks
+                        </button>
                     </div>
-                    <button class="cvc-button">Pilih</button>
                 </div>
-                <p class="method-label">GoPay/GoPaylater</p>
-                <div class="payment-method" id="gopay" onclick="gopayCards()">
-                    <div class="card-info" id="gopay">
-                        <div>
-                            <img src="images/gopay.jpg" alt="Credit Card">
+                <div id="qris">
+                    <p class="method-label">Qris</p>
+                    <div class="payment-method" onclick="qris()">
+                        <div class="card-info">
+                            <div>
+                                <img src="images/qris.png" alt="Credit Card">
+                            </div>
+                            <div>
+                                <img src="images/ovo.png" alt="Credit Card">
+                            </div>
+                            <div>
+                                <img src="images/dana.jpg" alt="Credit Card">
+                            </div>
+                            <div>
+                                <img src="images/link.png" alt="Credit Card">
+                            </div>
                         </div>
-                        <div>
-                            <img src="images/gopaylat.jpg" alt="Credit Card">
-                        </div>
-                        <div>
-                            <img src="images/qris.png" alt="Credit Card">
-                        </div>
+                        <button class="cvc-button">Pilih</button>
                     </div>
-                    <button class="cvc-button" id="qr" onclick="toggleCards()">Pilih</button>
+                </div>
+
+                <div id="gopay">
+                    <p class="method-label">GoPay/GoPaylater</p>
+                    <div class="payment-method" onclick="gopayCards()">
+                        <div class="card-info" id="gopay">
+                            <div>
+                                <img src="images/gopay.jpg" alt="Credit Card">
+                            </div>
+                            <div>
+                                <img src="images/gopaylat.jpg" alt="Credit Card">
+                            </div>
+                            <div>
+                                <img src="images/qris.png" alt="Credit Card">
+                            </div>
+                        </div>
+                        <button class="cvc-button" id="qr" onclick="toggleCards()">Pilih</button>
+                    </div>
                 </div>
             </div>
             <div id="status-payment" class="payment-container2" style="display: none">
@@ -838,25 +858,23 @@
                 <div class="payment-method2">
                     <form>
                         <div class="form-group">
-                            <label for="exp-date">Card Number</label>
-                            <input type="text" id="card_number" placeholder="Card Number"
-                                value="4811111111111114">
+                            <label for="card_number">Card Number</label>
+                            <input type="text" id="card_number" placeholder="Card Number" required>
                         </div>
                         <div class="form-group flex-container">
                             <div class="form-group">
-                                <label for="exp-date">Exp Date</label>
+                                <label for="card_exp_month">Exp Date</label>
                                 <input type="text" id="card_exp_month" placeholder="Expire Month (MM)"
-                                    maxlength="2" value="12">
+                                    maxlength="2" required>
                             </div>
                             <div class="form-group">
-                                <label for="exp-date">Exp Year</label>
-                                <input type="text" id="card_exp_year" placeholder="CVV" value="2024"
-                                    maxlength="4">
+                                <label for="card_exp_year">Exp Year</label>
+                                <input type="text" id="card_exp_year" placeholder="CVV" maxlength="2" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="cvv">cvv</label>
-                            <input type="text" id="card_cvv" name="cvv" value="123" required>
+                            <label for="card_cvv">cvv</label>
+                            <input type="text" id="card_cvv" name="cvv" maxlength="3" required>
                         </div>
                         <div class="form-group" style="margin-top: 10px">
                             <button id="button" class="payment-button" onclick="getCreditCardToken(event)"
@@ -884,13 +902,24 @@
                 <h4> IDR 1,0000,000 </h4>
                 <h4> Payment Successful ! </h4>
             </div>
-            <button id="back-payment-cek" class="payment-button2" onclick="cekstatus()"
-                >Pending</button>
+            <button id="back-payment-cek" class="payment-button2" onclick="cekstatus()">Pending</button>
         </div>
     </div>
 </body>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const grossAmount = parseFloat(document.getElementById('total_price').textContent);
+        const creditCard = document.getElementById('credit-card');
+        const virtualAccount = document.getElementById('virtual-account');
+        const qris = document.getElementById('qris');
+        const gopay = document.getElementById('gopay');
+
+        if (grossAmount > 10000000) {
+            gopay.style.display = 'none';
+        }
+    });
+
     function toggleBankButtons() {
         const bankButtons = document.getElementById('bank-buttons');
         bankButtons.style.display = bankButtons.style.display === 'none' || bankButtons.style.display === '' ? 'flex' :
@@ -918,121 +947,138 @@
 
     async function getCreditCardToken(e) {
         e.preventDefault();
-        // card data from customer input, for example
-        var cardData = {
-            "card_number": 4811111111111114,
-            "card_exp_month": 02,
-            "card_exp_year": 2025,
-            "card_cvv": 123,
-        };
 
-        // callback functions
-        var options = {
-            onSuccess: async function(response) {
+        let isValid = true;
 
-                const token_id = response.token_id;
-                // console.log('This is the card token_id:', token_id);
-                const customerName = document.getElementById('customerName').textContent;
-                const orderID = document.getElementById('order_code').textContent;
-                const grossAmount = document.getElementById('total_price').textContent;
-                // Success to get card token_id, implement as you wish here
-                //  console.log('Success to get card token_id, response:', response);
-
-                try {
-                    const response = await fetch('/credit-card', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                .getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            name: customerName,
-                            order_id: orderID,
-                            gross_amount: grossAmount,
-                            token_id: token_id
-
-                        })
-                    });
-
-                    const responseData = await response.json();
-
-                    if (responseData.success) {
-                        const redirect_url = responseData.data.redirect_url;
-                        var popupModal = (function() {
-                            var modal = null;
-                            return {
-                                openPopup(redirect_url) {
-                                    modal = picoModal({
-                                        content: '<iframe frameborder="0" style="height:90vh; width:100%;" src="' +
-                                            redirect_url + '"></iframe>',
-                                        width: "75%",
-                                        closeButton: false,
-                                        overlayClose: false,
-                                        escCloses: false
-                                    }).show();
-                                },
-                                closePopup() {
-                                    try {
-                                        modal.close();
-                                    } catch (e) {}
-                                }
-                            }
-                        }());
-                        // callback functions
-                        var options = {
-                            performAuthentication: function(redirect_url) {
-                                // Implement how you will open iframe to display 3ds authentication redirect_url to customer
-                                popupModal.openPopup(redirect_url);
-                            },
-                            onSuccess: function(response) {
-                                // 3ds authentication success, implement payment success scenario
-                                console.log('response:', response);
-                                alert('sukses');
-                                popupModal.closePopup();
-                                // // Simulate an HTTP redirect:
-                                window.location.replace("http://127.0.0.1:8000");
-                            },
-                            onFailure: function(response) {
-                                // 3ds authentication failure, implement payment failure scenario
-                                console.log('response:', response);
-                                alert(response);
-                            },
-                            onPending: function(response) {
-                                // transaction is pending, transaction result will be notified later via 
-                                // HTTP POST notification, implement as you wish here
-                                console.log('response:', response);
-                                alert(response);
-                                popupModal.closePopup();
-                            }
-                        };
-
-                        // trigger `authenticate` function
-                        MidtransNew3ds.authenticate(redirect_url, options);
-                    } else {
-                        console.error('Error:', responseData.error);
-                    }
-                } catch (error) {
-                    console.error('Fetch Error:', error);
-                    alert('An error occurred while processing your payment. Please try again.');
-                }
-
-
-                // Implement sending the token_id to backend to proceed to next step
-            },
-            onFailure: function(response) {
-                // Fail to get card token_id, implement as you wish here
-                console.log('Fail to get card token_id, response:', response);
-
-                // you may want to implement displaying failure message to customer.
-                // Also record the error message to your log, so you can review
-                // what causing failure on this transaction.
+        const fields = ['card_number', 'card_exp_month', 'card_exp_year', 'card_cvv'];
+        fields.forEach(field => {
+            const input = document.getElementById(field);
+            if (input.value.trim() === '') {
+                input.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                input.classList.remove('is-invalid');
             }
-        };
+        });
 
-        // trigger `getCardToken` function
-        MidtransNew3ds.getCardToken(cardData, options);
+        if (isValid) {
+            // card data from customer input, for example
+            var cardData = {
+                "card_number": document.getElementById('card_number').value,
+                "card_exp_month": document.getElementById('card_exp_month').value,
+                "card_exp_year": document.getElementById('card_exp_year').value,
+                "card_cvv": document.getElementById('card_cvv').value,
+            };
 
+            // callback functions
+            var options = {
+                onSuccess: async function(response) {
+
+                    const token_id = response.token_id;
+                    // console.log('This is the card token_id:', token_id);
+                    const customerName = document.getElementById('customerName').textContent;
+                    const orderID = document.getElementById('order_code').textContent;
+                    const grossAmount = document.getElementById('total_price').textContent;
+                    // Success to get card token_id, implement as you wish here
+                    //  console.log('Success to get card token_id, response:', response);
+
+                    try {
+                        const response = await fetch('/credit-card', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                name: customerName,
+                                order_id: orderID,
+                                gross_amount: grossAmount,
+                                token_id: token_id
+
+                            })
+                        });
+
+                        const responseData = await response.json();
+
+                        if (responseData.success) {
+                            const redirect_url = responseData.data.redirect_url;
+                            var popupModal = (function() {
+                                var modal = null;
+                                return {
+                                    openPopup(redirect_url) {
+                                        modal = picoModal({
+                                            content: '<iframe frameborder="0" style="height:90vh; width:100%;" src="' +
+                                                redirect_url + '"></iframe>',
+                                            width: "75%",
+                                            closeButton: false,
+                                            overlayClose: false,
+                                            escCloses: false
+                                        }).show();
+                                    },
+                                    closePopup() {
+                                        try {
+                                            modal.close();
+                                        } catch (e) {}
+                                    }
+                                }
+                            }());
+                            // callback functions
+                            var options = {
+                                performAuthentication: function(redirect_url) {
+                                    // Implement how you will open iframe to display 3ds authentication redirect_url to customer
+                                    popupModal.openPopup(redirect_url);
+                                },
+                                onSuccess: function(response) {
+                                    // 3ds authentication success, implement payment success scenario
+                                    console.log('response:', response);
+                                    alert('sukses');
+                                    popupModal.closePopup();
+                                    // // Simulate an HTTP redirect:
+                                    window.location.replace("{{ env('APP_URL') }}/order-direct");
+                                },
+                                onFailure: function(response) {
+                                    // 3ds authentication failure, implement payment failure scenario
+                                    console.log('response:', response);
+                                    alert(response);
+                                },
+                                onPending: function(response) {
+                                    // transaction is pending, transaction result will be notified later via 
+                                    // HTTP POST notification, implement as you wish here
+                                    console.log('response:', response);
+                                    alert(response);
+                                    popupModal.closePopup();
+                                }
+                            };
+
+                            // trigger `authenticate` function
+                            MidtransNew3ds.authenticate(redirect_url, options);
+                        } else {
+                            console.error('Error:', responseData.error);
+                        }
+                    } catch (error) {
+                        console.error('Fetch Error:', error);
+                        alert('An error occurred while processing your payment. Please try again.');
+                    }
+
+
+                    // Implement sending the token_id to backend to proceed to next step
+                },
+                onFailure: function(response) {
+                    // Fail to get card token_id, implement as you wish here
+                    console.log('Fail to get card token_id, response:', response);
+
+                    // you may want to implement displaying failure message to customer.
+                    // Also record the error message to your log, so you can review
+                    // what causing failure on this transaction.
+                }
+            };
+
+            // trigger `getCardToken` function
+            MidtransNew3ds.getCardToken(cardData, options);
+        } else {
+            alert('Please fill in all fields');
+        }
     }
 
 
@@ -1247,13 +1293,13 @@
 
     async function cekstatus() {
 
-       
+
         const card1 = document.getElementById('payment-container')
         const card2 = document.getElementById('payment-sukses')
         const button = document.getElementById('back-payment-cek');
         const orderID = document.getElementById('order_code').textContent;
         const grossAmount = document.getElementById('total_price').textContent;
-        
+
         card1.style.display = 'none';
         card2.style.display = 'block';
 
@@ -1264,14 +1310,14 @@
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
-               order_id : orderID
+                order_id: orderID
             })
         });
 
         const responseData = await response.json();
         console.log(responseData)
 
-         var status = responseData.data.status_payment
+        var status = responseData.data.status_payment
 
         if (status === 'Unpaid') {
             const image = document.getElementById('images');
@@ -1286,8 +1332,8 @@
             button.innerText = 'SUCCESS';
             button.className = 'payment-button2';
             setTimeout(function() {
-                window.location.href = '{{ env("APP_URL") }}/order-direct';
-            }, 2000); 
+                window.location.href = '{{ env('APP_URL') }}/order-direct';
+            }, 2000);
         } else {
             const image = document.getElementById('images');
             image.src = 'images/reject.gif';
