@@ -884,7 +884,7 @@
                 <h4> IDR 1,0000,000 </h4>
                 <h4> Payment Successful ! </h4>
             </div>
-            <button id="back-payment-test" class="payment-button2" onclick="cekstatus()"
+            <button id="back-payment-cek" class="payment-button2" onclick="cekstatus()"
                 >Pending</button>
         </div>
     </div>
@@ -1239,30 +1239,49 @@
         }
     }
 
-    function cekstatus() {
+    async function cekstatus() {
 
        
         const card1 = document.getElementById('payment-container')
         const card2 = document.getElementById('payment-sukses')
-        const button = document.getElementById('back-payment-test');
-
+        const button = document.getElementById('back-payment-cek');
+        const orderID = document.getElementById('order_code').textContent;
+        const grossAmount = document.getElementById('total_price').textContent;
+        
         card1.style.display = 'none';
         card2.style.display = 'block';
 
-         var status = 'pending';
+        const response = await fetch('/cek-status', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+               order_id : orderID
+            })
+        });
 
-        if (status === 'pending') {
+        const responseData = await response.json();
+        console.log(responseData)
+
+         var status = responseData.data.status_payment
+
+        if (status === 'Unpaid') {
             const image = document.getElementById('images');
             image.src = 'images/pending.gif';
             image.style.display = 'block';
             button.innerText = 'PENDING';
             button.className = 'payment-button3';
-        } else if (status === 'success') {
+        } else if (status === 'Paid') {
             const image = document.getElementById('images');
             image.src = 'images/success.gif';
             image.style.display = 'block';
             button.innerText = 'SUCCESS';
             button.className = 'payment-button2';
+            setTimeout(function() {
+                window.location.href = '{{ env("APP_URL") }}/order-direct';
+            }, 2000); 
         } else {
             const image = document.getElementById('images');
             image.src = 'images/reject.gif';
