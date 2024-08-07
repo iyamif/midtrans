@@ -50,7 +50,7 @@ class PaymentController extends Controller
                 'address' => 'Jalan Dummy',
                 'note' => 'Lorem Ipsum',
                 'total' => $grossAmount,
-                'status' => 0,
+                'status' => 1,
                 'status_payment' => 'Unpaid'
             ]);
 
@@ -111,7 +111,7 @@ class PaymentController extends Controller
                 'address' => 'Jalan Dummy',
                 'note' => 'Lorem Ipsum',
                 'total' => $grossAmount,
-                'status' => 0,
+                'status' => 1,
                 'status_payment' => 'Unpaid'
             ]);
 
@@ -168,7 +168,7 @@ class PaymentController extends Controller
                 'address' => 'Jalan Dummy',
                 'note' => 'Lorem Ipsum',
                 'total' => $grossAmount,
-                'status' => 0,
+                'status' => 1,
                 'status_payment' => 'Unpaid'
             ]);
 
@@ -227,7 +227,7 @@ class PaymentController extends Controller
                 'address' => 'Jalan Dummy',
                 'note' => 'Lorem Ipsum',
                 'total' => $grossAmount,
-                'status' => 0,
+                'status' => 1,
                 'status_payment' => 'Unpaid'
             ]);
 
@@ -285,7 +285,7 @@ class PaymentController extends Controller
                 'address' => 'Jalan Dummy',
                 'note' => 'Lorem Ipsum',
                 'total' => $grossAmount,
-                'status' => 0,
+                'status' => 1,
                 'status_payment' => 'Unpaid'
             ]);
     
@@ -318,5 +318,13 @@ class PaymentController extends Controller
             DB::rollBack();
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }        
+    }
+
+    public function cekStatus(Request $request){
+        $orderID = $request->input('order_id');
+
+        $getOrder = Order::where('order_code', $orderID)->first();
+        return response()->json(['success' => true, 'data' => $getOrder],200);
+        
     }
 }
