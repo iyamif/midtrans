@@ -11,7 +11,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 70vh;
             margin: 0;
             background-color: #ffffff;
             font-family: 'Arial', sans-serif;
@@ -501,18 +501,178 @@
             display: inline-block;
             margin: 10px 0;
         }
+
+        /* Media Query untuk Mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .payment-container {
+                width: 100%;
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 1rem;
+                align-content: center
+            }
+
+            .plan-box {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 5px;
+            }
+
+            .plan-price .amount {
+                font-size: 1rem;
+            }
+
+            .payment-method {
+                width: 100%;
+            }
+
+            .payment-box {
+                align-items: flex-start;
+            }
+
+            .form-group.flex-container {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .form-group.flex-container .input-inline {
+                width: 100%;
+            }
+
+            .form-group.flex-container .form-group:last-child {
+                width: 100%;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+          /* Media Query untuk Tablet */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .payment-container {
+                width: 100%;
+                max-width: 100%;
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            .plan-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .plan-price .amount {
+                font-size: 1.2rem;
+            }
+
+            .payment-method {
+                width: 100%;
+            }
+
+            .payment-box {
+                align-items: flex-start;
+            }
+
+            .form-group.flex-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .form-group.flex-container .input-inline {
+                width: 100%;
+            }
+
+            .form-group.flex-container .form-group:last-child {
+                width: 100%;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* Media Query untuk Mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .payment-container {
+                width: 100%;
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 1rem;
+            }
+
+            .plan-box {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 5px;
+            }
+
+            .plan-price .amount {
+                font-size: 1rem;
+            }
+
+            .payment-method {
+                width: 100%;
+            }
+
+            .payment-box {
+                align-items: flex-start;
+            }
+
+            .form-group.flex-container {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .form-group.flex-container .input-inline {
+                width: 100%;
+            }
+
+            .form-group.flex-container .form-group:last-child {
+                width: 100%;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="payment-container">
         <div class="payment-box">
-              <h2>PAYMENT</h2>
+            <h2>PAYMENT</h2>
             <p>Please make the payment to start enjoying all the features of our premium plan as soon as possible</p>
             <div id="card2" class="payment-container2">
                 <div class="payment-method2">
                     <form action="/payment-api" method="POST">
-                         @csrf
+                        @csrf
                         <div class="form-group">
                             <label for="card-number" onclick="toggleToCard1()">NAME</label>
                             <input type="text" id="name" name="name" required>
@@ -521,10 +681,10 @@
                             <label for="card-number" onclick="toggleToCard1()">TOTAL PAYMENT</label>
                             <input type="text" id="total_price" name="total_price" required>
                         </div>
-                         <button class="payment-button" id="button" >BAYAR</button>
+                        <button class="payment-button" id="button">BAYAR</button>
                     </form>
                 </div>
-                 
+
             </div>
         </div>
     </div>

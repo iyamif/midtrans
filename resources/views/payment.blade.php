@@ -794,12 +794,12 @@
                     <div id="virtual-account-container" class="container">
                         <div class="account-info">
                             <p><span class="label">Virtual Account</span> </p>
-                            <img src="images/mandiri.png" alt="BNI Logo">
+                            <img src="images/mandiri.png" id="logo-bank" alt="BNI Logo">
                         </div>
 
                         <div class="account-details">
                             <p><span class="label">Bank code :</span> </p>
-                            <p> <span class="value">0301</span> <a href="#" class="payment-link"
+                            <p> <span class="value" id="bank-code"></span> <a href="#" class="payment-link"
                                     onclick="copyText('virtual-account')">Copy</a></p>
 
                         </div>
@@ -1161,15 +1161,21 @@
         if (responseData.success) {
             if (responseData.data.status_message != 'Success, PERMATA VA transaction is successful') {
                 const vaNumber = responseData.data.va_numbers[0].va_number;
+                const codeBank = responseData.data.va_numbers[0].bank;
                 const vaNumberContainer = document.getElementById('virtual-account-container');
                 const vaNumberElement = document.getElementById('va-number');
+                const codeBankElement = document.getElementById('bank-code')
                 vaNumberElement.textContent = vaNumber;
+                codeBankElement.textContent = codeBank;
                 vaNumberContainer.style.display = 'block';
             } else {
                 const vaNumber = responseData.data.permata_va_number;
+                const codeBank = responseData.data.bank;
                 const vaNumberContainer = document.getElementById('virtual-account-container');
                 const vaNumberElement = document.getElementById('va-number');
+                const codeBankElement = document.getElementById('bank-code')
                 vaNumberElement.textContent = vaNumber;
+                codeBankElement.textContent = 'Permata';
                 vaNumberContainer.style.display = 'block';
             }
         } else {
