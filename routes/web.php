@@ -29,3 +29,4 @@ route::post('mandiri', [PaymentController::class, 'mandiriBill']);
 route::post('qris', [PaymentController::class, 'qris']);
 route::post('gopay', [PaymentController::class, 'gopay']);
 route::post('credit-card', [PaymentController::class, 'creditCard']);
+route::POST('cek-status', [PaymentController::class, 'cekStatus']);
