@@ -8,10 +8,7 @@
     <title>Payment</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    {{-- <script type="text/javascript" src="https://app.midtrans.com/snap/snap.js" data-client-key="SET_YOUR_CLIENT_KEY_HERE">
-        </script> --}}
-    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
-        data-client-key="SET_YOUR_CLIENT_KEY_HERE"></script>
+    <script type="text/javascript" src="{{ env('SNAP_MIDTRANS') }}" data-client-key="SET_YOUR_CLIENT_KEY_HERE"></script>
     <style>
         body {
             background-color: #f8f9fa;
@@ -88,33 +85,33 @@
                         <p class="card-text">Durian lokal, rasanya manis dan ada pait-paitnya, dijamin wueeeenak.</p> --}}
                         {{-- <form id="orderForm" action="/order-payment-bypass" method="POST">
                             @csrf --}}
-                            {{-- <div class="mb-3">
+                        {{-- <div class="mb-3">
                                 <label for="qty" class="form-label">Mau Pesan Berapa?</label>
                                 <input type="number" name="qty" class="form-control" id="qty"
                                     placeholder="jumlah yang dipesan" required>
                             </div> --}}
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nama Pelanggan</label>
-                                <input type="text" name="name" class="form-control" id="name"
-                                    placeholder="Masukkan nama anda!" value="{{ $name }}" required readonly>
-                            </div>
-                            {{-- <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama Pelanggan</label>
+                            <input type="text" name="name" class="form-control" id="name"
+                                placeholder="Masukkan nama anda!" value="{{ $name }}" required readonly>
+                        </div>
+                        {{-- <div class="mb-3">
                                 <label for="phone" class="form-label">No Telp</label>
                                 <input type="text" name="phone" class="form-control" id="phone"
                                     placeholder="Masukkan no hp!" value="{{ $phone }}" required>
                             </div> --}}
-                            {{-- <div class="mb-3">
+                        {{-- <div class="mb-3">
                                 <label for="address" class="form-label">Alamat</label>
                                 <textarea name="address" class="form-control" id="address" rows="3"
                                     placeholder="Masukkan alamat anda!" required></textarea>
                             </div> --}}
-                            <div class="mb-3">
-                                <label for="total_price" class="form-label">Total Pembayaran</label>
-                                <input type="text" name="total_price" class="form-control" id="total_price"
-                                    placeholder="Masukkan Jumlah Pembayaran!" value="{{ $total_price }}" required>
-                            </div>
-                            <input type="text" id="snap-token" hidden>
-                            <button type="button" class="btn btn-primary w-100" id="checkoutButton">Checkout</button>
+                        <div class="mb-3">
+                            <label for="total_price" class="form-label">Total Pembayaran</label>
+                            <input type="text" name="total_price" class="form-control" id="total_price"
+                                placeholder="Masukkan Jumlah Pembayaran!" value="{{ $total_price }}" required>
+                        </div>
+                        <input type="text" id="snap-token" hidden>
+                        <button type="button" class="btn btn-primary w-100" id="checkoutButton">Checkout</button>
                         {{-- </form> --}}
                     </div>
                 </div>
@@ -154,7 +151,7 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-          document.getElementById('total_price').addEventListener('input', function() {
+        document.getElementById('total_price').addEventListener('input', function() {
             const totalPrice = parseInt(this.value.replace(/,/g, '')) || 0;
             const checkoutButton = document.getElementById('checkoutButton');
             const notification = document.getElementById('notification');
@@ -216,10 +213,11 @@
                         window.snap.pay(snapToken, {
                             onSuccess: function(result) {
                                 alert('Berhasil')
-                                
+
                                 button.disabled = false;
-                                document.getElementById('checkoutButton').innerText = 'Checkout'
-                                window.location.href = '/invoice/'+orderCode
+                                document.getElementById('checkoutButton').innerText =
+                                    'Checkout'
+                                window.location.href = '/invoice/' + orderCode
 
                             },
                             onPending: function(result) {
