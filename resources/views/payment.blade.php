@@ -282,7 +282,7 @@
             display: none;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 10px;
+            /* margin-top: 10px; */
         }
 
         .bank-button {
@@ -309,8 +309,8 @@
         /* } */
 
         .bank-button img {
-            width: 25px;
-            height: 25px;
+            /* width: 25px; */
+            height: 30px;
         }
 
         .add-method {
@@ -662,6 +662,103 @@
             border-left-width: 2px;
             border-style: solid;
         }
+
+        .step-container {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            /* margin-bottom: 20px; */
+            position: relative;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ddd;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* margin-right: 10px; */
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number.completed {
+            background-color: #4caf50;
+        }
+
+        .step-number.active {
+            background-color: #2196f3;
+        }
+
+        .step-number.third {
+            background-color: #d30000;
+        }
+
+        .step-number.four {
+            background-color: #eac700;
+        }
+
+        .step-number.five {
+            background-color: #9500ff;
+        }
+
+        .step-number.six {
+            background-color: #000000;
+        }
+
+        .step-details {
+            /* background-color: #fff; */
+            border-radius: 5px;
+            padding: 10px 20px;
+            /* max-width: 500px; */
+            /* box-shadow: 0 2px 5px rgba(195, 195, 195, 0.1); */
+        }
+
+        .step-details h2 {
+            font-size: 10px;
+            margin: 0;
+
+        }
+
+        .step-details p {
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .step-title {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .step-description {
+            margin: 4px 0 0;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 100%;
+            background-color: #122a7b;
+            top: 24px;
+            left: 12px;
+            z-index: 0;
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
     </style>
 </head>
 
@@ -729,22 +826,22 @@
                     </div>
                     <div class="bank-buttons" id="bank-buttons">
                         <button class="bank-button" id="mandiri" onclick="mandiriBill()">
-                            <img src="images/mandiri.png" alt="Credit Card">
+                            <img src="images/mandiri.png" height="30px" width="60px" alt="Credit Card">
                         </button>
                         <button class="bank-button" id="bni" onclick="selectBank()">
-                            <img src="images/bni.png" alt="Credit Card">
+                            <img src="images/bni.png" height="20px" width="60px" alt="Credit Card">
                         </button>
                         <button class="bank-button" id="bri" onclick="selectBank()">
-                            <img src="images/bri.webp" alt="Credit Card">
+                            <img src="images/bri.png" height="30px" width="60px" alt="Credit Card">
                         </button>
                         <button class="bank-button" id="permata" onclick="selectBank()">
-                            <img src="images/permata.jpg" alt="Credit Card">
+                            <img src="images/permata.png" height="20px" width="70px" alt="Credit Card">
                         </button>
                         <button class="bank-button" id="cimb" onclick="selectBank()">
-                            <img src="images/cimb.jpg" alt="Credit Card">
+                            <img src="images/cim.png" height="30px" width="60px" alt="Credit Card">
                         </button>
 
-                        <button class="bank-button" id="others" onclick="selectBank(this)">
+                        <button class="bank-button" id="others" onclick="selectBank()">
                             Other Banks
                         </button>
                     </div>
@@ -814,7 +911,8 @@
                     <div id="virtual-account-container" class="container">
                         <div class="account-info">
                             <p><span class="label">Virtual Account</span> </p>
-                            <img src="images/mandiri.png" id="logo-bank" alt="BNI Logo">
+                            <img src="images/loading.gif" id="logo-bank" alt="BNI Logo" width="50px"
+                                height="20px">
                         </div>
 
                         <div class="account-details">
@@ -829,7 +927,64 @@
                                     onclick="copyText('virtual-account')">Copy</a></p>
 
                         </div>
-                        <a href="#" class="payment-link">Lihat Cara Pembayaran</a>
+                        <a onclick="stepBank()" class="payment-link">Lihat Cara Pembayaran</a>
+                        <div class="step-container" id="step-bank" style="display: none">
+                            <div id="step-bank-bri-container" style="display: none">
+                                <div class="step">
+                                    <div class="step-number active">2</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">Second Step</h2> --}}
+                                        <p class="step-description">Select Ecommerce.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-bank-bni-container" style="display: none">
+                                <div class="step">
+                                    <div class="step-number completed">1</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">First Step</h2> --}}
+                                        <p id="step-1" class="step-description">Select payment on the main menu</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number active">2</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">Second Step</h2> --}}
+                                        <p class="step-description">Select Ecommerce.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number third">3</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">Third Step</h2> --}}
+                                        <p class="step-description">Select Midtrans in the service provider field.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number four">4</div>
+                                    <div class="step-details">
+                                        {{-- <h3 class="step-title">Finish</h3> --}}
+                                        <p class="step-description">Input virtual account number in the payment code
+                                            field.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number five">5</div>
+                                    <div class="step-details">
+                                        {{-- <h3 class="step-title">Finish</h3> --}}
+                                        <p class="step-description">Click continue to confirm.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number six">6</div>
+                                    <div class="step-details">
+                                        {{-- <h3 class="step-title">Finish</h3> --}}
+                                        <p class="step-description">Payment complete</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -850,7 +1005,52 @@
                             <p> <span class="value" id="bill-key"></span> <a href="#" class="payment-link"
                                     onclick="copyText('virtual-account')">Copy</a></p>
                         </div>
-                        <a href="#" class="payment-link">Lihat Cara Pembayaran</a>
+                        <a onclick="selectStep()" class="payment-link">Lihat Cara Pembayaran</a>
+                        <div class="step-container" id="step-container" style="display: none">
+                            <div class="step">
+                                <div class="step-number completed">1</div>
+                                <div class="step-details">
+                                    {{-- <h2 class="step-title">First Step</h2> --}}
+                                    <p class="step-description">Select payment on the main menu</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number active">2</div>
+                                <div class="step-details">
+                                    {{-- <h2 class="step-title">Second Step</h2> --}}
+                                    <p class="step-description">Select Ecommerce.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number third">3</div>
+                                <div class="step-details">
+                                    {{-- <h2 class="step-title">Third Step</h2> --}}
+                                    <p class="step-description">Select Midtrans in the service provider field.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number four">4</div>
+                                <div class="step-details">
+                                    {{-- <h3 class="step-title">Finish</h3> --}}
+                                    <p class="step-description">Input virtual account number in the payment code field.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number five">5</div>
+                                <div class="step-details">
+                                    {{-- <h3 class="step-title">Finish</h3> --}}
+                                    <p class="step-description">Click continue to confirm.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number six">6</div>
+                                <div class="step-details">
+                                    {{-- <h3 class="step-title">Finish</h3> --}}
+                                    <p class="step-description">Payment complete</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -919,6 +1119,8 @@
             gopay.style.display = 'none';
         }
     });
+
+    let codeBank = '';
 
     function toggleBankButtons() {
         const bankButtons = document.getElementById('bank-buttons');
@@ -1167,17 +1369,13 @@
 
 
 
-    async function selectBank() {
+    async function selectBank(event) {
 
         const method = document.getElementById('method-choice');
         const card1 = document.getElementById('card1');
         const card5 = document.getElementById('cardbank');
         const button = document.getElementById('cek-status-payment');
-        // const metod = document.getElementById('metod');
 
-
-        // button.style.display = 'block';
-        // metod.style.display = 'none';
 
         const customerName = document.getElementById('customerName').textContent;
         const orderID = document.getElementById('order_code').textContent;
@@ -1208,15 +1406,29 @@
             if (responseData.data.status_message != 'Success, PERMATA VA transaction is successful') {
                 const vaNumber = responseData.data.va_numbers[0].va_number;
                 const codeBank = responseData.data.va_numbers[0].bank;
+                const logoBank = document.getElementById('logo-bank');
+                const stapBankContainer = document.getElementById('step-bank-bni-container');
+                const stapBankContainer1 = document.getElementById('step-bank-bri-container');
+                if (codeBank === 'bni') {
+                    logoBank.src = 'images/bni.png'
+                    stapBankContainer.style.display = 'blok';
+                    stapBankContainer1.style.display = 'none';
+                } else if (codeBank === 'cimb') {
+                    logoBank.src = 'images/cim.png'
+                } else if (codeBank === 'bri') {
+                    logoBank.src = 'images/bri.png'
+                }
                 const vaNumberContainer = document.getElementById('virtual-account-container');
                 const vaNumberElement = document.getElementById('va-number');
-                const codeBankElement = document.getElementById('bank-code')
+                const codeBankElement = document.getElementById('bank-code');
                 vaNumberElement.textContent = vaNumber;
                 codeBankElement.textContent = codeBank;
                 vaNumberContainer.style.display = 'block';
             } else {
                 const vaNumber = responseData.data.permata_va_number;
                 const codeBank = responseData.data.bank;
+                const logoBank = document.getElementById('logo-bank');
+                logoBank.src = 'images/permata.png'
                 const vaNumberContainer = document.getElementById('virtual-account-container');
                 const vaNumberElement = document.getElementById('va-number');
                 const codeBankElement = document.getElementById('bank-code')
@@ -1235,11 +1447,7 @@
         const card1 = document.getElementById('card1');
         const mandiri = document.getElementById('mandiri-bill');
         const button = document.getElementById('cek-status-payment');
-        // const button = document.getElementById('button');
-        // const metod = document.getElementById('metod');
 
-
-        // button.style.display = 'block';
         method.style.display = 'none';
         card1.style.display = 'none';
         mandiri.style.display = 'block';
@@ -1279,13 +1487,6 @@
             codeBiller.textContent = companyCode;
             vaNumberElement.textContent = vaNumber;
             vaNumberContainer.style.display = 'block';
-            // } else {
-            // const vaNumber = responseData.data.permata_va_number;
-            // const vaNumberContainer = document.getElementById('virtual-account-container');
-            // const vaNumberElement = document.getElementById('va-number');
-            // vaNumberElement.textContent = vaNumber;
-            // vaNumberContainer.style.display = 'block';
-            // }
         } else {
             console.error('Error:', responseData.error);
         }
@@ -1340,6 +1541,30 @@
             image.style.display = 'block';
             button.innerText = 'FAILED';
             button.className = 'payment-button4';
+        }
+
+    }
+
+    function selectStep() {
+        const stepContainer = document.getElementById('step-container');
+        stepContainer.style.display = stepContainer.style.display === 'none' || stepContainer.style.display === '' ?
+            'flex' : 'none';
+    }
+
+    function stepBank() {
+        const stepContainer = document.getElementById('step-bank');
+        const stepBankContainer = document.getElementById('step-bank-bni-container');
+        const stepBankContainer1 = document.getElementById('step-bank-bri-container');
+        console.log(codeBank);
+       
+        stepContainer.style.display = stepContainer.style.display === 'none' || stepContainer.style.display === '' ?
+            'flex' : 'none';
+        if (codeBank === 'bri') {
+            stepBankContainer.style.display = 'block';
+            stepBankContainer1.style.display = 'none';
+        } else if (codeBank === 'bni') {
+            stepBankContainer.style.display = 'none';
+            stepBankContainer1.style.display = 'block';
         }
 
     }
