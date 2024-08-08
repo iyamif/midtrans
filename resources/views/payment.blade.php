@@ -1369,7 +1369,7 @@
 
 
 
-    async function selectBank(event) {
+    async function selectBank() {
 
         const method = document.getElementById('method-choice');
         const card1 = document.getElementById('card1');
@@ -1405,7 +1405,7 @@
         if (responseData.success) {
             if (responseData.data.status_message != 'Success, PERMATA VA transaction is successful') {
                 const vaNumber = responseData.data.va_numbers[0].va_number;
-                const codeBank = responseData.data.va_numbers[0].bank;
+                codeBank = responseData.data.va_numbers[0].bank;
                 const logoBank = document.getElementById('logo-bank');
                 const stapBankContainer = document.getElementById('step-bank-bni-container');
                 const stapBankContainer1 = document.getElementById('step-bank-bri-container');
