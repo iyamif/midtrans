@@ -778,7 +778,8 @@
                 </div>
                 <div class="plan-price">
                     <span class="amount">Rp</span>
-                    <span class="amount" id="total_price">{{ $totalPrice }}</span>
+                    <span class="amount" id="total_price_label">{{ $totalPrice }}</span>
+                     <span hidden class="amount" id="total_price">{{ $totalPrice }}</span>
                     {{-- <span>/ year</span> --}}
                 </div>
             </div>
@@ -1235,7 +1236,7 @@
         const qris = document.getElementById('qris');
         const gopay = document.getElementById('gopay');
 
-        var totalPriceElement = document.getElementById('total_price');
+        var totalPriceElement = document.getElementById('total_price_label');
         var totalPrice = parseInt(totalPriceElement.textContent);
         totalPriceElement.textContent = totalPrice.toLocaleString('id-ID');
 
@@ -1658,6 +1659,9 @@
             button.className = 'payment-button3';
         } else if (status === 'Paid') {
             const image = document.getElementById('images');
+            const paySuccess = document.getElementById('pay-success');
+            const payPending = document.getElementById('pay-pending');
+            const payFailed = document.getElementById('pay-failed')
             image.src = 'images/success.gif';
             image.style.display = 'block';
             payPending.style.display = 'none';
@@ -1670,6 +1674,9 @@
             }, 2000);
         } else {
             const image = document.getElementById('images');
+            const paySuccess = document.getElementById('pay-success');
+            const payPending = document.getElementById('pay-pending');
+            const payFailed = document.getElementById('pay-failed')
             image.src = 'images/reject.gif';
             image.style.display = 'block';
              payPending.style.display = 'none';
