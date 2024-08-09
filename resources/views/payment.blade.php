@@ -773,7 +773,7 @@
                     <img src="images/ck.png" alt="Small Business">
                     <div>
                         <h3 class="plan-title" id="customerName"> {{ $name }}</h3>
-                        <a href="#" class="change-plan">TOTAL PAYMENT</a>
+                        <a class="change-plan">TOTAL PAYMENT</a>
                     </div>
                 </div>
                 <div class="plan-price">
@@ -924,17 +924,40 @@
                         <div class="account-details">
                             <p><span class="label">Nomor Virtual Account :</span> </p>
                             <p> <span class="value" id="va-number"></span> <a href="#" class="payment-link"
-                                    onclick="copyText('virtual-account')">Copy</a></p>
+                                    onclick="copyText('va-number', this)">Copy</a></p>
+                                    
 
                         </div>
-                        <a onclick="stepBank()" class="payment-link">Lihat Cara Pembayaran</a>
+                        <a onclick="stepBank()" class="payment-link">How To Pay</a>
                         <div class="step-container" id="step-bank" style="display: none">
                             <div id="step-bank-bri-container" style="display: none">
+                                <div class="step">
+                                    <div class="step-number completed">1</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">First Step</h2> --}}
+                                        <p id="step-1" class="step-description">Select payment.</p>
+                                    </div>
+                                </div>
                                 <div class="step">
                                     <div class="step-number active">2</div>
                                     <div class="step-details">
                                         {{-- <h2 class="step-title">Second Step</h2> --}}
-                                        <p class="step-description">Select Ecommerce.</p>
+                                        <p class="step-description">Select BRIVA.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number third">3</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">Third Step</h2> --}}
+                                        <p class="step-description">insert BRIVA number, then confirm.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number four">4</div>
+                                    <div class="step-details">
+                                        {{-- <h3 class="step-title">Finish</h3> --}}
+                                        <p class="step-description">Payment completed.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -943,29 +966,28 @@
                                     <div class="step-number completed">1</div>
                                     <div class="step-details">
                                         {{-- <h2 class="step-title">First Step</h2> --}}
-                                        <p id="step-1" class="step-description">Select payment on the main menu</p>
+                                        <p id="step-1" class="step-description">Select transfer.</p>
                                     </div>
                                 </div>
                                 <div class="step">
                                     <div class="step-number active">2</div>
                                     <div class="step-details">
                                         {{-- <h2 class="step-title">Second Step</h2> --}}
-                                        <p class="step-description">Select Ecommerce.</p>
+                                        <p class="step-description">Select virtual account billing.</p>
                                     </div>
                                 </div>
                                 <div class="step">
                                     <div class="step-number third">3</div>
                                     <div class="step-details">
                                         {{-- <h2 class="step-title">Third Step</h2> --}}
-                                        <p class="step-description">Select Midtrans in the service provider field.</p>
+                                        <p class="step-description">Select the debit account you want to use.</p>
                                     </div>
                                 </div>
                                 <div class="step">
                                     <div class="step-number four">4</div>
                                     <div class="step-details">
                                         {{-- <h3 class="step-title">Finish</h3> --}}
-                                        <p class="step-description">Input virtual account number in the payment code
-                                            field.
+                                        <p class="step-description">Insert the virtual account number, then confirm.
                                         </p>
                                     </div>
                                 </div>
@@ -973,14 +995,106 @@
                                     <div class="step-number five">5</div>
                                     <div class="step-details">
                                         {{-- <h3 class="step-title">Finish</h3> --}}
-                                        <p class="step-description">Click continue to confirm.</p>
+                                        <p class="step-description">Payment completed.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-bank-cimb-container" style="display: none">
+                                <div class="step">
+                                    <div class="step-number completed">1</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">First Step</h2> --}}
+                                        <p id="step-1" class="step-description">Select transfer menu.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number active">2</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">Second Step</h2> --}}
+                                        <p class="step-description">Select transfer to other CIMB Niaga account.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number third">3</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">Third Step</h2> --}}
+                                        <p class="step-description">Select your source account: CASA or rekening
+                                            ponsel.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number four">4</div>
+                                    <div class="step-details">
+                                        {{-- <h3 class="step-title">Finish</h3> --}}
+                                        <p class="step-description">Input the virtual account number.
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number five">5</div>
+                                    <div class="step-details">
+                                        {{-- <h3 class="step-title">Finish</h3> --}}
+                                        <p class="step-description">Input the payable amount.</p>
                                     </div>
                                 </div>
                                 <div class="step">
                                     <div class="step-number six">6</div>
                                     <div class="step-details">
                                         {{-- <h3 class="step-title">Finish</h3> --}}
-                                        <p class="step-description">Payment complete</p>
+                                        <p class="step-description">Follow the instructions to complete the payment.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number five">7</div>
+                                    <div class="step-details">
+                                        {{-- <h3 class="step-title">Finish</h3> --}}
+                                        <p class="step-description">Payment completed.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-bank-permata-container" style="display: none">
+                                <div class="step">
+                                    <div class="step-number completed">1</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">First Step</h2> --}}
+                                        <p id="step-1" class="step-description">Select other transactions on the
+                                            main menu.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number active">2</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">Second Step</h2> --}}
+                                        <p class="step-description">Select payment.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number third">3</div>
+                                    <div class="step-details">
+                                        {{-- <h2 class="step-title">Third Step</h2> --}}
+                                        <p class="step-description">Select other payments.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number four">4</div>
+                                    <div class="step-details">
+                                        {{-- <h3 class="step-title">Finish</h3> --}}
+                                        <p class="step-description">Select virtual account.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number five">5</div>
+                                    <div class="step-details">
+                                        {{-- <h3 class="step-title">Finish</h3> --}}
+                                        <p class="step-description">Insert virtual account number, then confirm.</p>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="step-number six">6</div>
+                                    <div class="step-details">
+                                        {{-- <h3 class="step-title">Finish</h3> --}}
+                                        <p class="step-description">Payment completed.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1098,9 +1212,15 @@
                 <img id="images" src="images/success.gif" alt="Checkmark Icon" class="state-code-img"
                     style="display: none">
             </div>
-            <div class="message">
+            <div class="message" id="pay-success" style="display: none">
                 <h4> IDR 1,0000,000 </h4>
                 <h4> Payment Successful ! </h4>
+            </div>
+            <div class="message" id="pay-pending" style="display: none">
+                <h4> WAITING PAYMENT ! </h4>
+            </div>
+            <div class="message" id="pay-failed" style="display: none">
+              <h4>X FAILED X</h4>
             </div>
             <button id="back-payment-cek" class="payment-button2" onclick="cekstatus()">Pending</button>
         </div>
@@ -1114,6 +1234,10 @@
         const virtualAccount = document.getElementById('virtual-account');
         const qris = document.getElementById('qris');
         const gopay = document.getElementById('gopay');
+
+        var totalPriceElement = document.getElementById('total_price');
+        var totalPrice = parseInt(totalPriceElement.textContent);
+        totalPriceElement.textContent = totalPrice.toLocaleString('id-ID');
 
         if (grossAmount > 10000000) {
             gopay.style.display = 'none';
@@ -1522,14 +1646,23 @@
 
         if (status === 'Unpaid') {
             const image = document.getElementById('images');
+            const paySuccess = document.getElementById('pay-success');
+            const payPending = document.getElementById('pay-pending');
+            const payFailed = document.getElementById('pay-failed')
             image.src = 'images/pending.gif';
             image.style.display = 'block';
+            payPending.style.display = 'block';
+            paySuccess.style.display = 'none';
+            payFailed.style.display = 'none';
             button.innerText = 'PENDING';
             button.className = 'payment-button3';
         } else if (status === 'Paid') {
             const image = document.getElementById('images');
             image.src = 'images/success.gif';
             image.style.display = 'block';
+            payPending.style.display = 'none';
+            paySuccess.style.display = 'block';
+            payFailed.style.display = 'none';
             button.innerText = 'SUCCESS';
             button.className = 'payment-button2';
             setTimeout(function() {
@@ -1539,6 +1672,9 @@
             const image = document.getElementById('images');
             image.src = 'images/reject.gif';
             image.style.display = 'block';
+             payPending.style.display = 'none';
+            paySuccess.style.display = 'none';
+            payFailed.style.display = 'block';
             button.innerText = 'FAILED';
             button.className = 'payment-button4';
         }
@@ -1553,29 +1689,58 @@
 
     function stepBank() {
         const stepContainer = document.getElementById('step-bank');
-        const stepBankContainer = document.getElementById('step-bank-bni-container');
-        const stepBankContainer1 = document.getElementById('step-bank-bri-container');
-        console.log(codeBank);
-       
+        const stepBankBri = document.getElementById('step-bank-bri-container');
+        const stepBankBni = document.getElementById('step-bank-bni-container');
+        const stepBankCimb = document.getElementById('step-bank-cimb-container');
+        const stepBankPermata = document.getElementById('step-bank-permata-container');
+
         stepContainer.style.display = stepContainer.style.display === 'none' || stepContainer.style.display === '' ?
             'flex' : 'none';
         if (codeBank === 'bri') {
-            stepBankContainer.style.display = 'block';
-            stepBankContainer1.style.display = 'none';
+            stepBankBri.style.display = 'block';
+            stepBankBni.style.display = 'none';
+            stepBankCimb.style.display = 'none';
+            stepBankPermata.style.display = 'none';
         } else if (codeBank === 'bni') {
-            stepBankContainer.style.display = 'none';
-            stepBankContainer1.style.display = 'block';
+            stepBankBri.style.display = 'none';
+            stepBankBni.style.display = 'block';
+            stepBankCimb.style.display = 'none';
+            stepBankPermata.style.display = 'none';
+        } else if (codeBank === 'cimb') {
+            stepBankBri.style.display = 'none';
+            stepBankBni.style.display = 'none';
+            stepBankCimb.style.display = 'block';
+            stepBankPermata.style.display = 'none';
+        } else {
+            stepBankBri.style.display = 'none';
+            stepBankBni.style.display = 'none';
+            stepBankCimb.style.display = 'none';
+            stepBankPermata.style.display = 'block';
         }
 
     }
 
-    function copyText(elementId) {
-        const text = document.getElementById(elementId).innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            alert("Text copied to clipboard!");
-        }).catch(err => {
-            console.error("Failed to copy text: ", err);
-        });
+    function copyText(elementId, linkElement) {
+         // Dapatkan elemen berdasarkan ID
+        var copyText = document.getElementById(elementId);
+        
+        // Buat elemen textarea sementara untuk menyalin teks
+        var textArea = document.createElement("textarea");
+        textArea.value = copyText.textContent;
+        document.body.appendChild(textArea);
+
+        // Pilih teks dalam textarea
+        textArea.select();
+        textArea.setSelectionRange(0, 99999); // Untuk perangkat mobile
+
+        // Salin teks ke clipboard
+        document.execCommand("copy");
+
+        // Hapus elemen textarea sementara
+        document.body.removeChild(textArea);
+
+        // Ubah teks link menjadi "Copied"
+        linkElement.textContent = "Copied";
     }
 </script>
 
