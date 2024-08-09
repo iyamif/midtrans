@@ -140,6 +140,9 @@ class OrderController extends Controller
             if($request->transaction_status == 'capture' || $request->transaction_status == 'settlement'){
                 $order = Order::where('order_code', $request->order_id)->first();
                 $order->update(['status' => 9, 'status_payment' => 'Paid']);
+            }else if($request->transaction_status == 'cancel'){
+                $order = Order::where('order_code', $request->order_id)->first();
+                $order->update(['status' => 0, 'status_payment' => 'Reject']);
             }
         }
     }
